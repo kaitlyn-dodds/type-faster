@@ -1,6 +1,6 @@
 import './App.css'
 import Challenge from './components/Challenge'
-import Keyboard from './components/keyboard'
+import Keyboard from './components/Keyboard'
 
 function App() {
   return (
