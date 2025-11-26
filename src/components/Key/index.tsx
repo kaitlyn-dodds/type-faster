@@ -1,14 +1,18 @@
 import './style.css'
 
 interface KeyProps {
-    key: string,
     value: string,
     isPressed: boolean
 }
 
-function Key({key, value, isPressed}: KeyProps) {
+function Key({value, isPressed}: KeyProps) {
     return (
-        <button className={`key ${isPressed ? "pressed" : ""}`} >{value.toUpperCase()}</button>
+        <button
+            className={`key ${isPressed ? "pressed" : ""}`}
+            id={value === "space" ? "space-bar" : undefined}
+        >
+            {value.toUpperCase()}
+        </button>
     )
 }
 

@@ -16,7 +16,7 @@ export const KEYBOARD_LAYOUT: string[][] = [
     ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
 
     // Row 5
-    // ["control", "meta", "alt", "space", "alt", "meta", "contextmenu", "control"],
+    ["control", "alt", "space", "alt", "control"],
 
     // Arrow cluster (optional)
     // ["arrowup"],

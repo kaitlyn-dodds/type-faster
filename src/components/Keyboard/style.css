@@ -1,3 +1,11 @@
-.keyboard {
-    color: blue;
+.keyboard { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-top: 40vh; 
+} 
+ 
+.keyboard-row { 
+    display: flex; 
+    justify-content: center; 
 }
