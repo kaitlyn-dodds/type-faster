@@ -1,38 +1,31 @@
 import './style.css'
 import Key from '../Key'
 import { useEffect, useState } from 'react'
-
-export const KEYBOARD_LAYOUT: string[][] = [
-    // Row 1
-    ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace"],
-
-    // Row 2
-    ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
-
-    // Row 3
-    ["capslock", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "enter"],
-
-    // Row 4
-    ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
-
-    // Row 5
-    ["control", "alt", "space", "alt", "control"],
-
-    // Arrow cluster (optional)
-    // ["arrowup"],
-    // ["arrowleft", "arrowdown", "arrowright"]
-];
+import type { KeyData } from '../../types/KeyData'
+import { DEFAULT_KEYBOARD_LAYOUT } from '../../constants/default_keyboard_layout'
 
 function Keyboard() {
-    const [pressedKey, setPressedKey] = useState<string | null>(null)
+    const [pressedKey, setPressedKey] = useState<KeyData | null>(null)
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            console.log("Pressed key is: ", e.key.toLowerCase())
-            setPressedKey(e.key.toLowerCase())
+            console.log("Pressed key code is: ", e.code)
+            const key = DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === e.code)
+            if (key) {
+                setPressedKey(key)
+
+                // need to prevent the default action here
+                e.preventDefault()
+            } else {
+                console.error("KeyData not found for code: ", e.code)
+            }
         }
 
-        const handleKeyUp = () => {
+        const handleKeyUp = (e: KeyboardEvent) => {
+            if (pressedKey && pressedKey.id === e.code) {
+                console.warn("handleKeyUp triggered for key without KeyData: ", e.code)
+            }
+            // I think we want to set pressedKey to null here no matter what
             setPressedKey(null)
         }
 
@@ -43,17 +36,18 @@ function Keyboard() {
             window.removeEventListener("keydown", handleKeyDown)
             window.removeEventListener("keyup", handleKeyUp)
         }
-    }, [])
+    }, [pressedKey])
 
     return (
         <div className="keyboard">
-            {KEYBOARD_LAYOUT.map((row, rowIndex) => (
+            {DEFAULT_KEYBOARD_LAYOUT.map((row, rowIndex) => (
                 <div key={rowIndex} className="keyboard-row">
-                    {row.map((keyVal) => (
-                        <Key 
-                            key={keyVal} 
-                            value={keyVal} 
-                            isPressed={pressedKey === keyVal} 
+                    {row.map((keyData) => (
+                        <Key
+                            key={keyData.id}
+                            value={keyData.value}
+                            display={keyData.display}
+                            isPressed={pressedKey?.id === keyData.id}
                         />
                     ))}
                 </div>
