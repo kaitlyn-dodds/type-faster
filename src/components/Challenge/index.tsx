@@ -1,11 +1,24 @@
 import './style.css'
+import ChallengeToken from "../ChallengeToken"
+import type { Token } from '../../types/Token'
 
-function Challenge() {
-    const current: string = "I am a typing challenge."
+interface ChallengeProps {
+    challengeTokens: Token[],
+    submittedTokens: Token[]
+}
+
+function Challenge({ challengeTokens, submittedTokens }: ChallengeProps) {
 
     return (
         <>
-            <p className='challenge' >{current}</p>
+            {challengeTokens.map((key, index) => (
+                <ChallengeToken
+                    key={index}
+                    display={key.value}
+                    // if the submitted token has the same value as the challenge token
+                    isEntered={submittedTokens[index]?.value === key.value}
+                />
+            ))}
         </>
     )
 }

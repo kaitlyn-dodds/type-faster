@@ -2,17 +2,26 @@ import './style.css'
 import Key from '../Key'
 import { useEffect, useState } from 'react'
 import type { KeyData } from '../../types/KeyData'
+import type { Token } from '../../types/Token'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../constants/default_keyboard_layout'
 
-function Keyboard() {
+interface KeyboardProps {
+    onTokenSubmit: (token: Token) => void
+}
+
+function Keyboard({ onTokenSubmit }: KeyboardProps) {
     const [pressedKey, setPressedKey] = useState<KeyData | null>(null)
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            console.log("Pressed key code is: ", e.code)
             const key = DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === e.code)
             if (key) {
                 setPressedKey(key)
+
+                onTokenSubmit({
+                    value: key.value, // TODO: will need to convert keys to actual values (e.g. lowercase, uppercase, space, etc.)
+                    isEntered: true
+                })
 
                 // need to prevent the default action here
                 e.preventDefault()
@@ -36,7 +45,7 @@ function Keyboard() {
             window.removeEventListener("keydown", handleKeyDown)
             window.removeEventListener("keyup", handleKeyUp)
         }
-    }, [pressedKey])
+    }, [pressedKey, onTokenSubmit])
 
     return (
         <div className="keyboard">

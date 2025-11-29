@@ -1,13 +1,21 @@
+import { useState } from 'react'
 import './App.css'
-import Challenge from './components/Challenge'
-import Keyboard from './components/Keyboard'
+import ChallengeSession from './components/ChallengeSession'
+import StartChallengeButton from './components/StartChallengeButton'
+import defaultChallenge from './data/challenges/default_challenge'
 
 function App() {
+  const [isSessionActive, setIsSessionActive] = useState(false)
+
+  const startSession = () => {
+    setIsSessionActive(true)
+  }
+
   return (
     <>
       <h2>Type Faster!</h2>
-      <Challenge></Challenge>
-      <Keyboard></Keyboard>
+      {!isSessionActive && <StartChallengeButton onStart={startSession} />}
+      {isSessionActive && <ChallengeSession challenge={defaultChallenge} />}
     </>
   )
 }
