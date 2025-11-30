@@ -11,14 +11,26 @@ function Challenge({ challengeTokens, submittedTokens }: ChallengeProps) {
 
     return (
         <>
-            {challengeTokens.map((key, index) => (
-                <ChallengeToken
-                    key={index}
-                    display={key.value}
-                    // if the submitted token has the same value as the challenge token
-                    isEntered={submittedTokens[index]?.value === key.value}
-                />
-            ))}
+            {challengeTokens.map((token, index) => {
+                let status: 'default' | 'entered' | 'enteredIncorrect' = 'default'
+                const submittedToken = submittedTokens[index]
+
+                if (submittedToken) {
+                    if (submittedToken.value === token.value) {
+                        status = 'entered'
+                    } else {
+                        status = 'enteredIncorrect'
+                    }
+                }
+
+                return (
+                    <ChallengeToken
+                        key={index}
+                        display={token.value}
+                        status={status}
+                    />
+                )
+            })}
         </>
     )
 }

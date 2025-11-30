@@ -1,3 +1,11 @@
-.challenge {
-    color: teal;
+.challenge-token.default {
+    color: darkgray;
+}
+
+.challenge-token.entered {
+    color: lightgreen;
+}
+
+.challenge-token.enteredIncorrect {
+    color: red;
 }

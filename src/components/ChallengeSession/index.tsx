@@ -19,10 +19,17 @@ function ChallengeSession({ challenge }: SessionProps) {
         console.log(tokenLog)
     }
 
+    const popToken = () => {
+        // remove last token
+        setSubmittedTokens(prev => prev.slice(0, prev.length - 1))
+    }
+
     return (
         <div className="challenge-session">
             <Challenge challengeTokens={challenge} submittedTokens={submittedTokens}></Challenge>
-            <Keyboard onTokenSubmit={submitToken}></Keyboard>
+            <Keyboard
+                onTokenSubmit={submitToken}
+                popToken={popToken}></Keyboard>
         </div>
     )
 }

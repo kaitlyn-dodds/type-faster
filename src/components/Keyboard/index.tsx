@@ -6,10 +6,11 @@ import type { Token } from '../../types/Token'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../constants/default_keyboard_layout'
 
 interface KeyboardProps {
-    onTokenSubmit: (token: Token) => void
+    onTokenSubmit: (token: Token) => void,
+    popToken: () => void
 }
 
-function Keyboard({ onTokenSubmit }: KeyboardProps) {
+function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
     const [pressedKey, setPressedKey] = useState<KeyData | null>(null)
 
     useEffect(() => {
@@ -17,6 +18,12 @@ function Keyboard({ onTokenSubmit }: KeyboardProps) {
             const key = DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === e.code)
             if (key) {
                 setPressedKey(key)
+
+                // if key is backspace, remove last token
+                if (key.id === "Backspace") {
+                    popToken()
+                    return
+                }
 
                 onTokenSubmit({
                     value: key.value, // TODO: will need to convert keys to actual values (e.g. lowercase, uppercase, space, etc.)

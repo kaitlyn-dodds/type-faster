@@ -1,12 +1,12 @@
 
 interface ChallengeTokenProps {
     display: string,
-    isEntered: boolean
+    status: 'default' | 'entered' | 'enteredIncorrect'
 }
 
-function ChallengeToken({ display }: ChallengeTokenProps) {
+function ChallengeToken({ display, status }: ChallengeTokenProps) {
     return (
-        <span>{display}</span>
+        <span className={`challenge-token ${status}`}>{display}</span>
     )
 }
 
