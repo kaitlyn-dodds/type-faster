@@ -10,14 +10,20 @@ interface KeyboardProps {
     popToken: () => void
 }
 
+function getKeyByCode(keyCode: string) {
+    return DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === keyCode)
+}
+
 function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
-    const [pressedKey, setPressedKey] = useState<KeyData | null>(null)
+    const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
 
     useEffect(() => {
+        // adds key to pressedKeys set
         const handleKeyDown = (e: KeyboardEvent) => {
-            const key = DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === e.code)
+            const key = getKeyByCode(e.code)
+
             if (key) {
-                setPressedKey(key)
+                setPressedKeys(prev => new Set(prev).add(key))
 
                 // if key is backspace, remove last token
                 if (key.id === "Backspace") {
@@ -38,11 +44,19 @@ function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
         }
 
         const handleKeyUp = (e: KeyboardEvent) => {
-            if (pressedKey && pressedKey.id === e.code) {
-                console.warn("handleKeyUp triggered for key without KeyData: ", e.code)
+            const key = getKeyByCode(e.code)
+
+            if (key && pressedKeys.has(key)) {
+                // remove key from pressedKeys set
+                setPressedKeys(prev => {
+                    const newSet = new Set(prev)
+                    newSet.delete(key)
+                    return newSet
+                })
+
+                // need to prevent the default action here
+                e.preventDefault()
             }
-            // I think we want to set pressedKey to null here no matter what
-            setPressedKey(null)
         }
 
         window.addEventListener("keydown", handleKeyDown)
@@ -52,7 +66,7 @@ function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
             window.removeEventListener("keydown", handleKeyDown)
             window.removeEventListener("keyup", handleKeyUp)
         }
-    }, [pressedKey, onTokenSubmit])
+    }, [pressedKeys, onTokenSubmit])
 
     return (
         <div className="keyboard">
@@ -63,7 +77,7 @@ function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
                             key={keyData.id}
                             value={keyData.value}
                             display={keyData.display}
-                            isPressed={pressedKey?.id === keyData.id}
+                            isPressed={pressedKeys.has(keyData)}
                         />
                     ))}
                 </div>
