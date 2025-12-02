@@ -11,4 +11,8 @@ export interface KeyData {
      * The visual representation of the key (e.g. "H", "CTRL", "BACKSPACE")
      */
     display: string;
+    /**
+     * The alternative value of the key (e.g. "~", "!")
+     */
+    altValue?: string;
 }

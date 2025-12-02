@@ -11,12 +11,9 @@ function ChallengeSession({ challenge }: SessionProps) {
     const [submittedTokens, setSubmittedTokens] = useState<Token[]>([])
 
     const submitToken = (token: Token) => {
+        console.log("submitToken: ", token)
         setSubmittedTokens(prev => [...prev, token])
-
-        // log submitted tokens
-        const tokenLog: string = submittedTokens.map(token => token.value).join("")
-        console.log("Current Submitted Tokens:")
-        console.log(tokenLog)
+        console.log("Submitted Tokens: ", submittedTokens.length)
     }
 
     const popToken = () => {
