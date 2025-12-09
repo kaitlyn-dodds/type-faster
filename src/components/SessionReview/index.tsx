@@ -1,19 +1,18 @@
 import type { Session } from "../../types/Session"
 
-function totalTimeInMinutes(totalTimeSeconds: number) {
-    return totalTimeSeconds / 60
-}
+
 
 interface SessionReviewProps {
     session: Session
     calcGrossWordsPerMinute: () => number
+    formatTime: (totalSeconds: number) => string
 }
 
-function SessionReview({ session, calcGrossWordsPerMinute }: SessionReviewProps) {
+function SessionReview({ session, calcGrossWordsPerMinute, formatTime }: SessionReviewProps) {
     return (
         <div>
             <h1>Session Review</h1>
-            <p>Session Total Time: {totalTimeInMinutes(session.totalTimeSeconds)}</p>
+            <p>Session Total Time: {formatTime(session.totalTimeSeconds)}</p>
             <p>Session Total Characters: {session.totalCharacters}</p>
             <p>Session Correct Characters: {session.correctCharacters}</p>
             <p>Session Incorrect Characters: {session.incorrectCharacters}</p>

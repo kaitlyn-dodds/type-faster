@@ -14,14 +14,6 @@ export interface Session {
      */
     submittedTokens: Token[]
     /**
-     * The time the session started
-     */
-    startTime: Date
-    /**
-     * The time the session ended
-     */
-    endTime: Date
-    /**
      * The total time the user spent typing in seconds
      */
     totalTimeSeconds: number
