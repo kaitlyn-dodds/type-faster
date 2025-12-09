@@ -49,8 +49,6 @@ function deriveTokenFromKeys(keys: Set<KeyData>) {
 
     // loop over remaining keys, apply shift modifier to first key if containsShift is true
     for (const key of keys) {
-        console.log("key 2: ", key.value)
-
         // skip modifier keys
         if (containsModifier && (key.id === "ShiftLeft" || key.id === "ShiftRight")) continue
 
@@ -80,7 +78,6 @@ function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
             const key = getKeyByCode(e.code)
 
             if (key) {
-                console.log("key 1: ", key.value)
                 const newPressedKeys = new Set(pressedKeys)
                 newPressedKeys.add(key)
                 setPressedKeys(newPressedKeys)

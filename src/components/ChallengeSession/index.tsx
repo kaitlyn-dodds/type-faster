@@ -26,18 +26,80 @@ function ChallengeSession({ challenge }: SessionProps) {
     const [correctWords, setCorrectWords] = useState(0)
     const [backspaces, setBackspaces] = useState(0)
     const [isComplete, setIsComplete] = useState(false)
+    const [hasIncorrectChar, setHasIncorrectChar] = useState(false)
+
+    const trackCharacterSubmission = (token: Token) => {
+        const currentIndex = submittedTokens.length
+        const expectedToken = challenge[currentIndex]
+
+        setTotalCharacters(prev => prev + 1)
+
+        if (expectedToken && token.value === expectedToken.value) {
+            if (!hasIncorrectChar) {
+                setCorrectCharacters(prev => prev + 1)
+            }
+        } else {
+            setHasIncorrectChar(true)
+            setIncorrectCharacters(prev => prev + 1)
+        }
+    }
+
+    const isRemovingCorrectCharacter = (token: Token, tokenIndex: number): boolean => {
+        if (token.value === 'Backspace') return false
+        const expectedToken = challenge[tokenIndex]
+        if (!expectedToken) return false
+        return token.value === expectedToken.value && !hasIncorrectChar
+    }
+
+    const trackCharacterRemoval = () => {
+        if (submittedTokens.length === 0) return
+
+        const lastToken = submittedTokens[submittedTokens.length - 1]
+        const lastIndex = submittedTokens.length - 1
+        const expectedToken = challenge[lastIndex]
+
+        // If removing an incorrect character
+        if (lastToken.value !== 'Backspace' &&
+            expectedToken &&
+            lastToken.value !== expectedToken.value) {
+
+            const remainingTokens = submittedTokens.slice(0, -1)
+            const hasOtherIncorrect = remainingTokens.some((token, index) => {
+                if (token.value === 'Backspace') return false
+                return token.value !== challenge[index]?.value
+            })
+
+            setHasIncorrectChar(hasOtherIncorrect)
+            setIncorrectCharacters(prev => prev - 1)
+        }
+
+        // If removing a correct character
+        if (isRemovingCorrectCharacter(lastToken, lastIndex)) {
+            setCorrectCharacters(prev => prev - 1)
+        }
+
+        // Decrement total if not backspace
+        if (lastToken.value !== 'Backspace') {
+            setTotalCharacters(prev => prev - 1)
+        }
+    }
 
     const submitToken = (token: Token) => {
-        // Start timer on first token
         if (!timerStarted) {
             setTimerStarted(true)
         }
 
+        if (token.value === 'Backspace') {
+            setSubmittedTokens(prev => [...prev, token])
+            return
+        }
+
+        trackCharacterSubmission(token)
         setSubmittedTokens(prev => [...prev, token])
     }
 
     const popToken = () => {
-        // remove last token
+        trackCharacterRemoval()
         setSubmittedTokens(prev => prev.slice(0, prev.length - 1))
     }
 
