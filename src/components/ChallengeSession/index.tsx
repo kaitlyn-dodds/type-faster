@@ -34,7 +34,6 @@ function ChallengeSession({ challenge }: SessionProps) {
 
         // increment backspaces if backspace
         if (token.value === 'Backspace') {
-            console.log("Backspace")
             setBackspaces(prev => prev + 1)
             return // don't want to increment correct or incorrect characters if backspace 
         }
@@ -44,7 +43,6 @@ function ChallengeSession({ challenge }: SessionProps) {
             setCorrectCharacters(prev => prev + 1)
             setCursor(prev => prev + 1)
         } else {
-            console.log("incrementing incorrect")
             setIncorrectCharacters(prev => prev + 1)
             // cursor does not increment on incorrect
         }
