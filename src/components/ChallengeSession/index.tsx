@@ -28,23 +28,13 @@ function ChallengeSession({ challenge }: SessionProps) {
 
     const trackCharacterSubmission = (token: Token) => {
         const expectedToken = challenge[cursor]
-
-        // increment total characters regardless of correctness or if backspace
         setTotalCharacters(prev => prev + 1)
 
-        // increment backspaces if backspace
-        if (token.value === 'Backspace') {
-            setBackspaces(prev => prev + 1)
-            return // don't want to increment correct or incorrect characters if backspace 
-        }
-
-        // if correct, increment correct characters
         if (expectedToken && token.value === expectedToken.value) {
             setCorrectCharacters(prev => prev + 1)
             setCursor(prev => prev + 1)
         } else {
             setIncorrectCharacters(prev => prev + 1)
-            // cursor does not increment on incorrect
         }
     }
 
@@ -72,15 +62,15 @@ function ChallengeSession({ challenge }: SessionProps) {
             setTimerStarted(true)
         }
 
-        trackCharacterSubmission(token)
-
-        // if token is backspace, remove last token
-        if (token && token.value === "Backspace") {
+        // Handle backspace separately
+        if (token.value === "Backspace") {
+            setBackspaces(prev => prev + 1)
             popToken()
             return
         }
 
-        // dont count add backspace to submitted tokens
+        // Track and submit non-backspace tokens
+        trackCharacterSubmission(token)
         setSubmittedTokens(prev => [...prev, token])
     }
 
@@ -153,8 +143,7 @@ function ChallengeSession({ challenge }: SessionProps) {
                 <Challenge challengeTokens={challenge} submittedTokens={submittedTokens} cursor={cursor}></Challenge>
                 {!isComplete && (
                     <Keyboard
-                        onTokenSubmit={submitToken}
-                        popToken={popToken} ></Keyboard>
+                        onTokenSubmit={submitToken} ></Keyboard>
                 )}
             </div>
         )

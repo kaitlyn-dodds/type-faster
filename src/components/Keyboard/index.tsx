@@ -6,8 +6,7 @@ import type { Token } from '../../types/Token'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../constants/default_keyboard_layout'
 
 interface KeyboardProps {
-    onTokenSubmit: (token: Token) => void,
-    popToken: () => void
+    onTokenSubmit: (token: Token) => void
 }
 
 function getKeyByCode(keyCode: string) {
@@ -69,7 +68,7 @@ function deriveTokenFromKeys(keys: Set<KeyData>) {
     console.log("No valid key found")
 }
 
-function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
+function Keyboard({ onTokenSubmit }: KeyboardProps) {
     const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
 
     useEffect(() => {
