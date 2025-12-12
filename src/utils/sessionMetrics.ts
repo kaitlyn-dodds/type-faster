@@ -1,4 +1,5 @@
 import type { Session } from '../types/Session'
+import type { StatQuality } from '../types/StatQuality'
 
 export function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60)
@@ -25,4 +26,20 @@ export function calculateKeystrokeAccuracy(session: Session): number {
 
 export function formatAccuracy(accuracy: number): string {
     return accuracy.toFixed(2) + '%'
+}
+
+export function calculateWPMQuality(wpm: number): StatQuality {
+    if (wpm < 20) return { message: 'Keep practicing!', quality: 'poor' }
+    if (wpm < 40) return { message: 'You\'re getting there!', quality: 'fair' }
+    if (wpm < 60) return { message: 'Great job!', quality: 'good' }
+    if (wpm < 80) return { message: 'You\'re a pro!', quality: 'excellent' }
+    return { message: 'No one\'s better than you!', quality: 'legendary' }
+}
+
+export function calculateAccuracyQuality(accuracy: number): StatQuality {
+    if (accuracy < 50) return { message: 'Keep practicing!', quality: 'poor' }
+    if (accuracy < 70) return { message: 'You\'re getting there!', quality: 'fair' }
+    if (accuracy < 90) return { message: 'Great job!', quality: 'good' }
+    if (accuracy < 99) return { message: 'You\'re a pro!', quality: 'excellent' }
+    return { message: 'No one\'s better than you!', quality: 'legendary' }
 }

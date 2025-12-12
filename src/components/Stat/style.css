@@ -21,3 +21,27 @@
     font-family: monospace;
     font-size: 1.1em;
 }
+
+.stat .value.default {
+    color: #213547;
+}
+
+.stat .value.poor {
+    color: red;
+}
+
+.stat .value.fair {
+    color: orange;
+}
+
+.stat .value.good {
+    color: green;
+}
+
+.stat .value.excellent {
+    color: blue;
+}
+
+.stat .value.legendary {
+    color: purple;
+}
