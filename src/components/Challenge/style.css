@@ -9,3 +9,9 @@
 .challenge-token.enteredIncorrect {
     color: red;
 }
+
+.challenge-token.cursor {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}

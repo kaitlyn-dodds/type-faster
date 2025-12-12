@@ -4,10 +4,11 @@ import type { Token } from '../../types/Token'
 
 interface ChallengeProps {
     challengeTokens: Token[],
-    submittedTokens: Token[]
+    submittedTokens: Token[],
+    cursor: number
 }
 
-function Challenge({ challengeTokens, submittedTokens }: ChallengeProps) {
+function Challenge({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
 
     return (
         <>
@@ -28,6 +29,7 @@ function Challenge({ challengeTokens, submittedTokens }: ChallengeProps) {
                         key={index}
                         display={token.value}
                         status={status}
+                        isCursor={index === cursor}
                     />
                 )
             })}

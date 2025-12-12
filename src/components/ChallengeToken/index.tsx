@@ -1,12 +1,14 @@
 
 interface ChallengeTokenProps {
     display: string,
-    status: 'default' | 'entered' | 'enteredIncorrect'
+    status: 'default' | 'entered' | 'enteredIncorrect',
+    isCursor: boolean
 }
 
-function ChallengeToken({ display, status }: ChallengeTokenProps) {
+function ChallengeToken({ display, status, isCursor }: ChallengeTokenProps) {
+    const cursorClass = isCursor ? 'cursor' : ''
     return (
-        <span className={`challenge-token ${status}`}>{display}</span>
+        <span className={`challenge-token ${status} ${cursorClass}`}>{display}</span>
     )
 }
 

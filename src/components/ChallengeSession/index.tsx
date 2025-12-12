@@ -26,57 +26,45 @@ function ChallengeSession({ challenge }: SessionProps) {
     const [correctWords, setCorrectWords] = useState(0)
     const [backspaces, setBackspaces] = useState(0)
     const [isComplete, setIsComplete] = useState(false)
-    const [hasIncorrectChar, setHasIncorrectChar] = useState(false)
+    const [cursor, setCursor] = useState(0)
 
     const trackCharacterSubmission = (token: Token) => {
-        const currentIndex = submittedTokens.length
-        const expectedToken = challenge[currentIndex]
+        const expectedToken = challenge[cursor]
 
         // increment total characters regardless of correctness or if backspace
         setTotalCharacters(prev => prev + 1)
 
+        // increment backspace tracker if backspace
+        if (token.value === 'Backspace') {
+            setBackspaces(prev => prev + 1)
+        }
+
         // if correct, increment correct characters
         if (expectedToken && token.value === expectedToken.value) {
-            if (!hasIncorrectChar) {
-                setCorrectCharacters(prev => prev + 1)
-            }
+            setCorrectCharacters(prev => prev + 1)
+            setCursor(prev => prev + 1)
         } else {
-            setHasIncorrectChar(true)
             setIncorrectCharacters(prev => prev + 1)
+            // cursor does not increment on incorrect
         }
     }
 
-    const isRemovingCorrectCharacter = (token: Token, tokenIndex: number): boolean => {
+    const isRemovingCorrectCharacter = (token: Token): boolean => {
         if (token.value === 'Backspace') return false
-        const expectedToken = challenge[tokenIndex]
+        const expectedToken = challenge[cursor]
         if (!expectedToken) return false
-        return token.value === expectedToken.value && !hasIncorrectChar
+        return token.value === expectedToken.value
     }
 
     const trackCharacterRemoval = () => {
         if (submittedTokens.length === 0) return
 
         const lastSubmittedToken = submittedTokens[submittedTokens.length - 1]
-        const lastIndex = submittedTokens.length - 1
-        const expectedToken = challenge[lastIndex]
-
-        // If removing an incorrect character
-        if (lastSubmittedToken.value !== 'Backspace' &&
-            expectedToken &&
-            lastSubmittedToken.value !== expectedToken.value) {
-
-            const remainingTokens = submittedTokens.slice(0, -1)
-            const hasOtherIncorrect = remainingTokens.some((token, index) => {
-                if (token.value === 'Backspace') return false
-                return token.value !== challenge[index]?.value
-            })
-
-            setHasIncorrectChar(hasOtherIncorrect)
-        }
 
         // If removing a correct character
-        if (isRemovingCorrectCharacter(lastSubmittedToken, lastIndex)) {
+        if (isRemovingCorrectCharacter(lastSubmittedToken)) {
             setCorrectCharacters(prev => prev - 1)
+            setCursor(prev => prev - 1) // going backwards
         }
     }
 
@@ -104,28 +92,6 @@ function ChallengeSession({ challenge }: SessionProps) {
         // Use elapsed seconds from timer
         setTotalTimeSeconds(elapsedSeconds)
         setIsComplete(true)
-    }
-
-    const calcGrossWordsPerMinute = (): number => {
-        // 5 characters per word
-        const standardWords = totalCharacters / 5
-
-        // convert time to minutes
-        const minutes = totalTimeSeconds / 60
-
-        // calculate words per minute
-        return standardWords / minutes
-    }
-
-    const formatTime = (totalSeconds: number): string => {
-        const minutes = Math.floor(totalSeconds / 60)
-        const seconds = Math.floor(totalSeconds % 60)
-
-        // Format as MM:SS with leading zeros
-        const formattedMinutes = minutes.toString().padStart(2, '0')
-        const formattedSeconds = seconds.toString().padStart(2, '0')
-
-        return `${formattedMinutes}:${formattedSeconds}`
     }
 
     // Timer with 10-minute failsafe
@@ -163,10 +129,6 @@ function ChallengeSession({ challenge }: SessionProps) {
         }
     }, [submittedTokens, challenge])
 
-    useEffect(() => {
-        console.log("total incorrect characters: ", incorrectCharacters)
-    }, [incorrectCharacters])
-
     if (isComplete) {
         // Build session data object matching Session interface
         const sessionData: Session = {
@@ -182,21 +144,18 @@ function ChallengeSession({ challenge }: SessionProps) {
             backspaces
         }
 
-        return <SessionReview
-            session={sessionData}
-            calcGrossWordsPerMinute={calcGrossWordsPerMinute}
-            formatTime={formatTime} />
+        return <SessionReview session={sessionData} />
     } else {
         return (
             <div className="challenge-session">
                 {/* Timer component in upper right */}
                 <Timer elapsedSeconds={elapsedSeconds} />
 
-                <Challenge challengeTokens={challenge} submittedTokens={submittedTokens}></Challenge>
+                <Challenge challengeTokens={challenge} submittedTokens={submittedTokens} cursor={cursor}></Challenge>
                 {!isComplete && (
                     <Keyboard
                         onTokenSubmit={submitToken}
-                        popToken={popToken}></Keyboard>
+                        popToken={popToken} ></Keyboard>
                 )}
             </div>
         )
