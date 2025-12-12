@@ -1,0 +1,4 @@
+.button {
+    /* Inherits global button styles from index.css */
+    flex: 1;
+}

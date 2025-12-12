@@ -10,9 +10,10 @@ import './style.css'
 
 interface SessionProps {
     challenge: Token[]
+    onComplete: () => void
 }
 
-function ChallengeSession({ challenge }: SessionProps) {
+function ChallengeSession({ challenge, onComplete }: SessionProps) {
     // Session state
     const [id] = useState(() => uuidv4())
     const [submittedTokens, setSubmittedTokens] = useState<Token[]>([])
@@ -79,6 +80,19 @@ function ChallengeSession({ challenge }: SessionProps) {
         setSubmittedTokens(prev => prev.slice(0, prev.length - 1))
     }
 
+    const handleRestart = () => {
+        setSubmittedTokens([])
+        setTimerStarted(false)
+        setElapsedSeconds(0)
+        setTotalTimeSeconds(0)
+        setTotalCharacters(0)
+        setCorrectCharacters(0)
+        setIncorrectCharacters(0)
+        setBackspaces(0)
+        setIsComplete(false)
+        setCursor(0)
+    }
+
     const completeSession = () => {
         // Use elapsed seconds from timer
         setTotalTimeSeconds(elapsedSeconds)
@@ -133,7 +147,11 @@ function ChallengeSession({ challenge }: SessionProps) {
             backspaces
         }
 
-        return <SessionReview session={sessionData} />
+        return <SessionReview
+            session={sessionData}
+            onMenuClick={onComplete}
+            onRestartClick={handleRestart}
+        />
     } else {
         return (
             <div className="challenge-session">
