@@ -32,10 +32,12 @@ function SessionReview({ session, onMenuClick, onRestartClick }: SessionReviewPr
         <div className="session-review">
             <h1>Session Review</h1>
 
+            <h2>{netWPMQuality.message}</h2>
+
             <Stat label="Total Time" value={formatTime(session.totalTimeSeconds)} />
-            <Stat label="Raw WPM" value={rawWPM.toFixed(2)} quality={rawWPMQuality.quality} />
-            <Stat label="Net WPM" value={netWPM.toFixed(2)} quality={netWPMQuality.quality} />
-            <Stat label="Keystroke Accuracy" value={formatAccuracy(accuracy)} quality={accuracyQuality.quality} />
+            <Stat label="Raw WPM" value={rawWPM.toFixed(2)} quality={rawWPMQuality} />
+            <Stat label="Net WPM" value={netWPM.toFixed(2)} quality={netWPMQuality} />
+            <Stat label="Keystroke Accuracy" value={formatAccuracy(accuracy)} quality={accuracyQuality} />
             <Stat label="Total Characters" value={session.totalCharacters} />
             <Stat label="Correct Characters" value={session.correctCharacters} />
             <Stat label="Incorrect Characters" value={session.incorrectCharacters} />
