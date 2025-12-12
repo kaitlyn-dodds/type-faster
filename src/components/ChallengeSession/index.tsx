@@ -32,8 +32,10 @@ function ChallengeSession({ challenge }: SessionProps) {
         const currentIndex = submittedTokens.length
         const expectedToken = challenge[currentIndex]
 
+        // increment total characters regardless of correctness or if backspace
         setTotalCharacters(prev => prev + 1)
 
+        // if correct, increment correct characters
         if (expectedToken && token.value === expectedToken.value) {
             if (!hasIncorrectChar) {
                 setCorrectCharacters(prev => prev + 1)
@@ -54,14 +56,14 @@ function ChallengeSession({ challenge }: SessionProps) {
     const trackCharacterRemoval = () => {
         if (submittedTokens.length === 0) return
 
-        const lastToken = submittedTokens[submittedTokens.length - 1]
+        const lastSubmittedToken = submittedTokens[submittedTokens.length - 1]
         const lastIndex = submittedTokens.length - 1
         const expectedToken = challenge[lastIndex]
 
         // If removing an incorrect character
-        if (lastToken.value !== 'Backspace' &&
+        if (lastSubmittedToken.value !== 'Backspace' &&
             expectedToken &&
-            lastToken.value !== expectedToken.value) {
+            lastSubmittedToken.value !== expectedToken.value) {
 
             const remainingTokens = submittedTokens.slice(0, -1)
             const hasOtherIncorrect = remainingTokens.some((token, index) => {
@@ -70,17 +72,11 @@ function ChallengeSession({ challenge }: SessionProps) {
             })
 
             setHasIncorrectChar(hasOtherIncorrect)
-            setIncorrectCharacters(prev => prev - 1)
         }
 
         // If removing a correct character
-        if (isRemovingCorrectCharacter(lastToken, lastIndex)) {
+        if (isRemovingCorrectCharacter(lastSubmittedToken, lastIndex)) {
             setCorrectCharacters(prev => prev - 1)
-        }
-
-        // Decrement total if not backspace
-        if (lastToken.value !== 'Backspace') {
-            setTotalCharacters(prev => prev - 1)
         }
     }
 
@@ -89,12 +85,13 @@ function ChallengeSession({ challenge }: SessionProps) {
             setTimerStarted(true)
         }
 
+        trackCharacterSubmission(token)
+
         if (token.value === 'Backspace') {
             setSubmittedTokens(prev => [...prev, token])
             return
         }
 
-        trackCharacterSubmission(token)
         setSubmittedTokens(prev => [...prev, token])
     }
 
@@ -165,6 +162,10 @@ function ChallengeSession({ challenge }: SessionProps) {
             }
         }
     }, [submittedTokens, challenge])
+
+    useEffect(() => {
+        console.log("total incorrect characters: ", incorrectCharacters)
+    }, [incorrectCharacters])
 
     if (isComplete) {
         // Build session data object matching Session interface
