@@ -84,12 +84,6 @@ function Keyboard({ onTokenSubmit, popToken }: KeyboardProps) {
 
                 const token: Token | undefined = deriveTokenFromKeys(newPressedKeys)
 
-                // if token is backspace, remove last token
-                if (token && token.value === "Backspace") {
-                    popToken()
-                    return
-                }
-
                 // nothing to do if no token
                 if (!token) return
 

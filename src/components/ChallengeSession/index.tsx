@@ -22,8 +22,6 @@ function ChallengeSession({ challenge }: SessionProps) {
     const [totalCharacters, setTotalCharacters] = useState(0)
     const [correctCharacters, setCorrectCharacters] = useState(0)
     const [incorrectCharacters, setIncorrectCharacters] = useState(0)
-    const [totalWords, setTotalWords] = useState(0)
-    const [correctWords, setCorrectWords] = useState(0)
     const [backspaces, setBackspaces] = useState(0)
     const [isComplete, setIsComplete] = useState(false)
     const [cursor, setCursor] = useState(0)
@@ -34,9 +32,11 @@ function ChallengeSession({ challenge }: SessionProps) {
         // increment total characters regardless of correctness or if backspace
         setTotalCharacters(prev => prev + 1)
 
-        // increment backspace tracker if backspace
+        // increment backspaces if backspace
         if (token.value === 'Backspace') {
+            console.log("Backspace")
             setBackspaces(prev => prev + 1)
+            return // don't want to increment correct or incorrect characters if backspace 
         }
 
         // if correct, increment correct characters
@@ -44,6 +44,7 @@ function ChallengeSession({ challenge }: SessionProps) {
             setCorrectCharacters(prev => prev + 1)
             setCursor(prev => prev + 1)
         } else {
+            console.log("incrementing incorrect")
             setIncorrectCharacters(prev => prev + 1)
             // cursor does not increment on incorrect
         }
@@ -75,11 +76,13 @@ function ChallengeSession({ challenge }: SessionProps) {
 
         trackCharacterSubmission(token)
 
-        if (token.value === 'Backspace') {
-            setSubmittedTokens(prev => [...prev, token])
+        // if token is backspace, remove last token
+        if (token && token.value === "Backspace") {
+            popToken()
             return
         }
 
+        // dont count add backspace to submitted tokens
         setSubmittedTokens(prev => [...prev, token])
     }
 
@@ -139,8 +142,6 @@ function ChallengeSession({ challenge }: SessionProps) {
             totalCharacters,
             correctCharacters,
             incorrectCharacters,
-            totalWords,
-            correctWords,
             backspaces
         }
 

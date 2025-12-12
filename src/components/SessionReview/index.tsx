@@ -1,3 +1,5 @@
+import './style.css'
+import Stat from '../Stat'
 import type { Session } from "../../types/Session"
 
 interface SessionReviewProps {
@@ -40,21 +42,17 @@ function formatAccuracy(accuracy: number): string {
 
 function SessionReview({ session }: SessionReviewProps) {
     return (
-        <div>
+        <div className="session-review">
             <h1>Session Review</h1>
-            <p>Session Total Time: {formatTime(session.totalTimeSeconds)}</p>
 
-            <p>Raw WPM: {rawWordsPerMinute(session).toFixed(2)}</p>
-            <p>Net WPM: {netWordsPerMinute(session).toFixed(2)}</p>
-
-            <p>Keystroke Accuracy: {formatAccuracy(keystrokeAccuracy(session))}</p>
-
-            <p>Session Total Characters: {session.totalCharacters}</p>
-            <p>Session Correct Characters: {session.correctCharacters}</p>
-            <p>Session Incorrect Characters: {session.incorrectCharacters}</p>
-            <p>Session Total Words: {session.totalWords}</p>
-            <p>Session Correct Words: {session.correctWords}</p>
-            <p>Session Backspaces: {session.backspaces}</p>
+            <Stat label="Total Time" value={formatTime(session.totalTimeSeconds)} />
+            <Stat label="Raw WPM" value={rawWordsPerMinute(session).toFixed(2)} />
+            <Stat label="Net WPM" value={netWordsPerMinute(session).toFixed(2)} />
+            <Stat label="Keystroke Accuracy" value={formatAccuracy(keystrokeAccuracy(session))} />
+            <Stat label="Total Characters" value={session.totalCharacters} />
+            <Stat label="Correct Characters" value={session.correctCharacters} />
+            <Stat label="Incorrect Characters" value={session.incorrectCharacters} />
+            <Stat label="Backspaces" value={session.backspaces} />
         </div>
     )
 }

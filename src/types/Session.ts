@@ -30,14 +30,6 @@ export interface Session {
      */
     incorrectCharacters: number
     /**
-     * The total number of words the user typed
-     */
-    totalWords: number
-    /**
-     * The total number of correct words the user typed
-     */
-    correctWords: number
-    /**
      * The total number of backspaces the user performed
      */
     backspaces: number
