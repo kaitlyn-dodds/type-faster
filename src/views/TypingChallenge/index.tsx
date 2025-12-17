@@ -1,9 +1,9 @@
-import ChallengeSession from "../../components/ChallengeSession";
+import TypingSession from "../../features/typing-challenge/components/TypingSession";
 import defaultChallenge from '../../data/challenges/default_challenge'
 
 export default function TypingChallenge() {
     return (
-        <ChallengeSession
+        <TypingSession
             challenge={defaultChallenge}
             onComplete={() => { }}
         />

@@ -1,5 +1,5 @@
 import './style.css'
-import type { StatQuality } from '../../types/StatQuality'
+import type { StatQuality } from '../../../../types/StatQuality'
 
 interface StatProps {
     label: string

@@ -1,9 +1,9 @@
 import './style.css'
 import Key from '../Key'
 import { useEffect, useState } from 'react'
-import type { KeyData } from '../../types/KeyData'
-import type { Token } from '../../types/Token'
-import { DEFAULT_KEYBOARD_LAYOUT } from '../../constants/default_keyboard_layout'
+import type { Token } from '../../../../types/Token'
+import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../constants/default_keyboard_layout'
+import type { KeyData } from '../../../../types'
 
 interface KeyboardProps {
     onTokenSubmit: (token: Token) => void

@@ -1,6 +1,6 @@
 import './style.css'
 import ChallengeToken from "../ChallengeToken"
-import type { Token } from '../../types/Token'
+import type { Token } from '../../../../types/Token'
 
 interface ChallengeProps {
     challengeTokens: Token[],
@@ -8,7 +8,7 @@ interface ChallengeProps {
     cursor: number
 }
 
-function Challenge({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
+function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
     return (
         <>
             {challengeTokens.map((token, index) => {
@@ -36,4 +36,4 @@ function Challenge({ challengeTokens, submittedTokens, cursor }: ChallengeProps)
     )
 }
 
-export default Challenge
+export default ChallengeText

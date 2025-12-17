@@ -1,7 +1,7 @@
 import './style.css'
 import Stat from '../Stat'
-import Button from '../Button'
-import type { Session } from "../../types/Session"
+import Button from '../../../../components/Button'
+import type { Session } from "../../../../types/Session"
 import {
     formatTime,
     calculateRawWPM,
@@ -10,7 +10,7 @@ import {
     formatAccuracy,
     calculateWPMQuality,
     calculateAccuracyQuality
-} from '../../utils/sessionMetrics'
+} from '../../../../utils/sessionMetrics'
 
 interface SessionReviewProps {
     session: Session

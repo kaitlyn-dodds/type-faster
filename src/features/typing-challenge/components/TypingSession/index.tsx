@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import Challenge from "../Challenge"
-import Keyboard from "../Keyboard"
-import SessionReview from "../SessionReview"
-import Timer from "../Timer"
-import type { Token } from "../../types/Token"
-import type { Session } from "../../types/Session"
+import ChallengeText from "../ChallengeText"
+import Keyboard from '../../../keyboard/components/Keyboard'
+import SessionReview from "../../../challenge-review/components/SessionReview"
+import Timer from "../../../../components/Timer"
+import type { Token } from "../../../../types/Token"
+import type { Session } from "../../../../types/Session"
 import './style.css'
 
 interface SessionProps {
@@ -13,7 +13,7 @@ interface SessionProps {
     onComplete: () => void
 }
 
-function ChallengeSession({ challenge, onComplete }: SessionProps) {
+function TypingSession({ challenge, onComplete }: SessionProps) {
     // Session state
     const [id] = useState(() => uuidv4())
     const [submittedTokens, setSubmittedTokens] = useState<Token[]>([])
@@ -158,7 +158,7 @@ function ChallengeSession({ challenge, onComplete }: SessionProps) {
                 {/* Timer component in upper right */}
                 <Timer elapsedSeconds={elapsedSeconds} />
 
-                <Challenge challengeTokens={challenge} submittedTokens={submittedTokens} cursor={cursor}></Challenge>
+                <ChallengeText challengeTokens={challenge} submittedTokens={submittedTokens} cursor={cursor}></ChallengeText>
                 {!isComplete && (
                     <Keyboard
                         onTokenSubmit={submitToken} ></Keyboard>
@@ -168,4 +168,4 @@ function ChallengeSession({ challenge, onComplete }: SessionProps) {
     }
 }
 
-export default ChallengeSession
+export default TypingSession
