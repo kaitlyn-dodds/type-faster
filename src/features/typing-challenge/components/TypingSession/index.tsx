@@ -4,19 +4,19 @@ import ChallengeText from "../ChallengeText"
 import Keyboard from '../../../keyboard/components/Keyboard'
 import SessionReview from "../../../challenge-review/components/SessionReview"
 import Timer from "../../../../components/Timer"
-import type { Token } from "../../../../types/Token"
-import type { Session } from "../../../../types/Session"
+import type { ChallengeToken } from "../../types/ChallengeToken"
+import type { TypingSession } from "../../../challenge-review/types/TypingSession"
 import './style.css'
 
 interface SessionProps {
-    challenge: Token[]
+    challenge: ChallengeToken[]
     onComplete: () => void
 }
 
 function TypingSession({ challenge, onComplete }: SessionProps) {
     // Session state
     const [id] = useState(() => uuidv4())
-    const [submittedTokens, setSubmittedTokens] = useState<Token[]>([])
+    const [submittedTokens, setSubmittedTokens] = useState<ChallengeToken[]>([])
     const [timerStarted, setTimerStarted] = useState(false)
     const [elapsedSeconds, setElapsedSeconds] = useState(0)
     const [totalTimeSeconds, setTotalTimeSeconds] = useState(0)
@@ -27,7 +27,7 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
     const [isComplete, setIsComplete] = useState(false)
     const [cursor, setCursor] = useState(0)
 
-    const trackCharacterSubmission = (token: Token) => {
+    const trackCharacterSubmission = (token: ChallengeToken) => {
         const expectedToken = challenge[cursor]
         setTotalCharacters(prev => prev + 1)
 
@@ -39,7 +39,7 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
         }
     }
 
-    const isRemovingCorrectCharacter = (token: Token): boolean => {
+    const isRemovingCorrectCharacter = (token: ChallengeToken): boolean => {
         if (token.value === 'Backspace') return false
         const expectedToken = challenge[cursor]
         if (!expectedToken) return false
@@ -58,7 +58,7 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
         }
     }
 
-    const submitToken = (token: Token) => {
+    const submitToken = (token: ChallengeToken) => {
         if (!timerStarted) {
             setTimerStarted(true)
         }
@@ -136,7 +136,7 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
 
     if (isComplete) {
         // Build session data object matching Session interface
-        const sessionData: Session = {
+        const sessionData: TypingSession = {
             id,
             challenge,
             submittedTokens,

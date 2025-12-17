@@ -1,10 +1,10 @@
 import './style.css'
-import ChallengeToken from "../ChallengeToken"
-import type { Token } from '../../../../types/Token'
+import ChallengeTokenDisplay from "../ChallengeToken"
+import type { ChallengeToken } from "../../types/ChallengeToken"
 
 interface ChallengeProps {
-    challengeTokens: Token[],
-    submittedTokens: Token[],
+    challengeTokens: ChallengeToken[],
+    submittedTokens: ChallengeToken[],
     cursor: number
 }
 
@@ -24,7 +24,7 @@ function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengePr
                 }
 
                 return (
-                    <ChallengeToken
+                    <ChallengeTokenDisplay
                         key={index}
                         display={token.value}
                         status={status}

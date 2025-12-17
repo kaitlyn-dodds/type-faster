@@ -1,7 +1,7 @@
 import './style.css'
 import Stat from '../Stat'
 import Button from '../../../../components/Button'
-import type { Session } from "../../../../types/Session"
+import type { TypingSession } from "../../../../features/challenge-review/types/TypingSession"
 import {
     formatTime,
     calculateRawWPM,
@@ -13,7 +13,7 @@ import {
 } from '../../../../utils/sessionMetrics'
 
 interface SessionReviewProps {
-    session: Session
+    session: TypingSession
     onMenuClick: () => void
     onRestartClick: () => void
 }

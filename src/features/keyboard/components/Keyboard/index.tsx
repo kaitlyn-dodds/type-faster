@@ -1,12 +1,12 @@
 import './style.css'
 import Key from '../Key'
 import { useEffect, useState } from 'react'
-import type { Token } from '../../../../types/Token'
-import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../constants/default_keyboard_layout'
-import type { KeyData } from '../../../../types'
+import type { ChallengeToken } from '../../../typing-challenge/types/ChallengeToken'
+import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../data/constants/default_keyboard_layout'
+import type { KeyData } from '../../types/KeyData'
 
 interface KeyboardProps {
-    onTokenSubmit: (token: Token) => void
+    onTokenSubmit: (token: ChallengeToken) => void
 }
 
 function getKeyByCode(keyCode: string) {
@@ -81,7 +81,7 @@ function Keyboard({ onTokenSubmit }: KeyboardProps) {
                 newPressedKeys.add(key)
                 setPressedKeys(newPressedKeys)
 
-                const token: Token | undefined = deriveTokenFromKeys(newPressedKeys)
+                const token: ChallengeToken | undefined = deriveTokenFromKeys(newPressedKeys)
 
                 // nothing to do if no token
                 if (!token) return

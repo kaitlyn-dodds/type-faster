@@ -5,11 +5,11 @@ interface ChallengeTokenProps {
     isCursor: boolean
 }
 
-function ChallengeToken({ display, status, isCursor }: ChallengeTokenProps) {
+function ChallengeTokenDisplay({ display, status, isCursor }: ChallengeTokenProps) {
     const cursorClass = isCursor ? 'cursor' : ''
     return (
         <span className={`challenge-token ${status} ${cursorClass}`}>{display}</span>
     )
 }
 
-export default ChallengeToken
+export default ChallengeTokenDisplay

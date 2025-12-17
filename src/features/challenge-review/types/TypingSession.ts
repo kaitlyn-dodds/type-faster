@@ -1,6 +1,6 @@
-import type { Token } from "./Token"
+import type { ChallengeToken } from "../features/typing-challenge/types/ChallengeToken"
 
-export interface Session {
+export interface TypingSession {
     /**
      * A unique identifier for the session
      */
@@ -8,11 +8,11 @@ export interface Session {
     /**
      * The challenge that the user is typing
      */
-    challenge: Token[]
+    challenge: ChallengeToken[]
     /**
      * The tokens that the user has submitted
      */
-    submittedTokens: Token[]
+    submittedTokens: ChallengeToken[]
     /**
      * The total time the user spent typing in seconds
      */

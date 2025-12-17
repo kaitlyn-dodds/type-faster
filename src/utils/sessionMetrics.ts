@@ -1,5 +1,5 @@
-import type { Session } from '../types/Session'
-import type { StatQuality } from '../types/StatQuality'
+import type { TypingSession } from '../features/challenge-review/types/TypingSession'
+import type { StatQuality } from '../features/challenge-review/types/StatQuality'
 
 export function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60)
@@ -7,19 +7,19 @@ export function formatTime(totalSeconds: number): string {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
 }
 
-export function calculateRawWPM(session: Session): number {
+export function calculateRawWPM(session: TypingSession): number {
     const standardWords = session.totalCharacters / 5
     const minutes = session.totalTimeSeconds / 60
     return standardWords / minutes
 }
 
-export function calculateNetWPM(session: Session): number {
+export function calculateNetWPM(session: TypingSession): number {
     const standardWords = session.correctCharacters / 5
     const minutes = session.totalTimeSeconds / 60
     return standardWords / minutes
 }
 
-export function calculateKeystrokeAccuracy(session: Session): number {
+export function calculateKeystrokeAccuracy(session: TypingSession): number {
     if (session.totalCharacters === 0) return 0
     return (session.correctCharacters / session.totalCharacters) * 100
 }

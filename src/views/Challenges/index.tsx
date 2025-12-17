@@ -1,4 +1,12 @@
+import ChallengeSelect from "../../features/challenge-selection/components/ChallengeSelect"
 
 export default function Challenges() {
-    return <h2>Challenges Go Here...</h2>;
+    return (
+        <div>
+            <h2>Select a Challenge</h2>
+            <p>Choose a challenge to get started</p>
+
+            <ChallengeSelect />
+        </div>
+    )
 }
