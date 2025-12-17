@@ -5,18 +5,9 @@ import Navbar from "./components/Navbar";
 import Main from "./views/Main";
 import Challenges from "./views/Challenges";
 import Leaderboard from "./views/Leaderboard";
+import TypingChallenge from "./views/TypingChallenge";
 
 function App() {
-  const [isSessionActive, setIsSessionActive] = useState(false)
-
-  const startSession = () => {
-    setIsSessionActive(true)
-  }
-
-  const handleSessionComplete = () => {
-    setIsSessionActive(false)
-  }
-
   return (
     <Router>
       <Navbar />
@@ -26,6 +17,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/typing-challenge" element={<TypingChallenge />} />
         </Routes>
       </main>
     </Router>
