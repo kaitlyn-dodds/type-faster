@@ -9,7 +9,6 @@ interface ChallengeProps {
 }
 
 function Challenge({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
-
     return (
         <>
             {challengeTokens.map((token, index) => {

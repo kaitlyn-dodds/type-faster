@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import ChallengeSession from './components/ChallengeSession'
-import Button from './components/Button'
-import defaultChallenge from './data/challenges/default_challenge'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Main from "./views/Main";
+import Challenges from "./views/Challenges";
+import Leaderboard from "./views/Leaderboard";
 
 function App() {
   const [isSessionActive, setIsSessionActive] = useState(false)
@@ -16,16 +18,17 @@ function App() {
   }
 
   return (
-    <>
-      <h2>Type Faster!</h2>
-      {!isSessionActive && <Button label="Start Challenge" onClick={startSession} />}
-      {isSessionActive && (
-        <ChallengeSession
-          challenge={defaultChallenge}
-          onComplete={handleSessionComplete}
-        />
-      )}
-    </>
+    <Router>
+      <Navbar />
+
+      <main className="app-content">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/challenges" element={<Challenges />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Routes>
+      </main>
+    </Router>
   )
 }
 
