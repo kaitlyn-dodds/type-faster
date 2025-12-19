@@ -1,0 +1,52 @@
+.session-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center buttons under timer */
+    gap: 8px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.session-controls-buttons {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.control-button {
+    flex: 1;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    background-color: rgba(255, 255, 255, 0.9);
+    outline: none;
+}
+
+.control-button:focus {
+    outline: none;
+}
+
+.control-button:first-child {
+    border-radius: 0 0 0 8px;
+}
+
+.control-button:last-child {
+    border-radius: 0 0 8px 0;
+}
+
+.quit-button:hover {
+    background-color: #d32f2f;
+}
+
+.restart-button:hover {
+    background-color: #1976d2;
+}

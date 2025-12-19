@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 import ChallengeText from "../ChallengeText"
 import Keyboard from '../../../keyboard/components/Keyboard'
 import SessionReview from "../../../challenge-review/components/SessionReview"
-import Timer from "../../../../components/Timer"
+import SessionControls from "../SessionControls"
 import type { ChallengeToken } from "../../types/ChallengeToken"
 import type { TypingSession } from "../../../challenge-review/types/TypingSession"
 import './style.css'
@@ -14,6 +15,7 @@ interface SessionProps {
 }
 
 function TypingSession({ challenge, onComplete }: SessionProps) {
+    const navigate = useNavigate()
     // Session state
     const [id] = useState(() => uuidv4())
     const [submittedTokens, setSubmittedTokens] = useState<ChallengeToken[]>([])
@@ -99,6 +101,10 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
         setIsComplete(true)
     }
 
+    const handleQuit = () => {
+        navigate('/challenges')
+    }
+
     // Timer with 10-minute failsafe
     useEffect(() => {
         if (!timerStarted || isComplete) return
@@ -149,19 +155,24 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
 
         return <SessionReview
             session={sessionData}
-            onMenuClick={onComplete}
             onRestartClick={handleRestart}
         />
     } else {
         return (
             <div className="challenge-session">
-                {/* Timer component in upper right */}
-                <Timer elapsedSeconds={elapsedSeconds} />
+                <SessionControls
+                    elapsedSeconds={elapsedSeconds}
+                    onQuit={handleQuit}
+                    onRestart={handleRestart}
+                />
 
-                <ChallengeText challengeTokens={challenge} submittedTokens={submittedTokens} cursor={cursor}></ChallengeText>
+                <ChallengeText
+                    challengeTokens={challenge}
+                    submittedTokens={submittedTokens}
+                    cursor={cursor} />
                 {!isComplete && (
                     <Keyboard
-                        onTokenSubmit={submitToken} ></Keyboard>
+                        onTokenSubmit={submitToken} />
                 )}
             </div>
         )

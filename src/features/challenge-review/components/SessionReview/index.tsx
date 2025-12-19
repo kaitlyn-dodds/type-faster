@@ -11,14 +11,15 @@ import {
     calculateWPMQuality,
     calculateAccuracyQuality
 } from '../../../../utils/sessionMetrics'
+import { useNavigate } from 'react-router-dom'
 
 interface SessionReviewProps {
     session: TypingSession
-    onMenuClick: () => void
     onRestartClick: () => void
 }
 
-function SessionReview({ session, onMenuClick, onRestartClick }: SessionReviewProps) {
+function SessionReview({ session, onRestartClick }: SessionReviewProps) {
+    const navigate = useNavigate()
 
     const rawWPM = calculateRawWPM(session)
     const netWPM = calculateNetWPM(session)
@@ -44,7 +45,7 @@ function SessionReview({ session, onMenuClick, onRestartClick }: SessionReviewPr
             <Stat label="Backspaces" value={session.backspaces} />
 
             <div className="button-container">
-                <Button label="Menu" onClick={onMenuClick} />
+                <Button label="New Challenge" onClick={() => navigate('/challenges')} />
                 <Button label="Restart" onClick={onRestartClick} />
             </div>
         </div>
