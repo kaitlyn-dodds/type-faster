@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Main from "./views/Main";
 import Challenges from "./views/Challenges";
 import Leaderboard from "./views/Leaderboard";
-import TypingChallenge from "./views/TypingChallenge";
+import TypingChallengeView from "./views/TypingChallenge";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/typing-challenge" element={<TypingChallenge />} />
+          <Route path="/typing-challenge" element={<TypingChallengeView />} />
         </Routes>
       </main>
     </Router>

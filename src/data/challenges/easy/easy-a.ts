@@ -12,6 +12,7 @@ const challengeTokens: ChallengeToken[] = text.split("").map(char => ({
 
 export const easyChallengeA: TypingChallenge = {
     id: "easy-a",
+    name: "The Quick Brown Fox",
     difficulty: "easy",
     challengeTokens
 }

@@ -1,8 +1,10 @@
-import defaultChallenge from '../../data/challenges/default-challenge'
 import TypingSession from '../../features/typing-challenge/components/TypingSession'
+import { useLocation } from 'react-router-dom'
 
-export default function TypingChallenge() {
+export default function TypingChallengeView() {
+    const { challenge } = useLocation().state;
+
     return (
-        <TypingSession challenge={defaultChallenge} />
+        <TypingSession challenge={challenge} />
     )
 }

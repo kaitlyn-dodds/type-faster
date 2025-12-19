@@ -8,9 +8,10 @@ import SessionControls from "../SessionControls"
 import type { ChallengeToken } from "../../types/ChallengeToken"
 import type { TypingSession as TypingSessionData } from "../../../challenge-review/types/TypingSession"
 import './style.css'
+import type { TypingChallenge } from '../../types/typing-challenge'
 
 interface SessionProps {
-    challenge: ChallengeToken[]
+    challenge: TypingChallenge
 }
 
 function TypingSession({ challenge }: SessionProps) {
@@ -29,7 +30,7 @@ function TypingSession({ challenge }: SessionProps) {
     const [cursor, setCursor] = useState(0)
 
     const trackCharacterSubmission = (token: ChallengeToken) => {
-        const expectedToken = challenge[cursor]
+        const expectedToken = challenge.challengeTokens[cursor]
         setTotalCharacters(prev => prev + 1)
 
         if (expectedToken && token.value === expectedToken.value) {
@@ -42,7 +43,7 @@ function TypingSession({ challenge }: SessionProps) {
 
     const isRemovingCorrectCharacter = (token: ChallengeToken): boolean => {
         if (token.value === 'Backspace') return false
-        const expectedToken = challenge[cursor]
+        const expectedToken = challenge.challengeTokens[cursor]
         if (!expectedToken) return false
         return token.value === expectedToken.value
     }
@@ -127,10 +128,10 @@ function TypingSession({ challenge }: SessionProps) {
 
     // Check if challenge is complete
     useEffect(() => {
-        if (submittedTokens.length === challenge.length) {
+        if (submittedTokens.length === challenge.challengeTokens.length) {
             // Check if all tokens match
             const allMatch = submittedTokens.every((token, index) =>
-                token.value === challenge[index].value
+                token.value === challenge.challengeTokens[index].value
             )
 
             if (allMatch) {
@@ -143,7 +144,7 @@ function TypingSession({ challenge }: SessionProps) {
         // Build session data object matching Session interface
         const sessionData: TypingSessionData = {
             id,
-            challenge,
+            challenge: challenge.challengeTokens,
             submittedTokens,
             totalTimeSeconds,
             totalCharacters,
@@ -166,7 +167,7 @@ function TypingSession({ challenge }: SessionProps) {
                 />
 
                 <ChallengeText
-                    challengeTokens={challenge}
+                    challengeTokens={challenge.challengeTokens}
                     submittedTokens={submittedTokens}
                     cursor={cursor} />
 
