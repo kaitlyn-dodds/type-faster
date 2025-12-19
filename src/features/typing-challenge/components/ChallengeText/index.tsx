@@ -10,7 +10,7 @@ interface ChallengeProps {
 
 function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
     return (
-        <>
+        <div className="challenge-text">
             {challengeTokens.map((token, index) => {
                 let status: 'default' | 'entered' | 'enteredIncorrect' = 'default'
                 const submittedToken = submittedTokens[index]
@@ -32,7 +32,7 @@ function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengePr
                     />
                 )
             })}
-        </>
+        </div>
     )
 }
 

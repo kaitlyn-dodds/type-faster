@@ -1,14 +1,24 @@
 import { getChallengesByDifficulty } from "../../services/challenge-selection-service";
 import type { TypingChallenge } from "../../../typing-challenge/types/typing-challenge";
+import './style.css';
 
 export default function ChallengeSelect() {
-    const challenges = getChallengesByDifficulty("easy");
+    const difficulties: TypingChallenge['difficulty'][] = ["easy", "medium", "hard", "expert"];
 
     return (
-        <ul>
-            {challenges.map((challenge: TypingChallenge) => (
-                <li key={challenge.id}>{challenge.id}</li>
+        <div className="challenge-select-container">
+            {difficulties.map((difficulty) => (
+                <div key={difficulty} className="difficulty-column">
+                    <h2 className="difficulty-header">{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</h2>
+                    <div className="challenges-list">
+                        {getChallengesByDifficulty(difficulty).map((challenge: TypingChallenge) => (
+                            <button key={challenge.id} className="challenge-button">
+                                {challenge.id}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             ))}
-        </ul>
+        </div>
     );
 }

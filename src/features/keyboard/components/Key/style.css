@@ -1,24 +1,24 @@
-.key { 
-    min-width: 40px; 
-    height: 45px; 
-    padding: 0 12px; 
-    border-radius: 8px; 
-    border: 2px solid black; 
-    margin: 3px; 
-    color: black; 
-    background-color: white; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
-    font-size: 12px; 
-    box-sizing: border-box; 
-} 
- 
-.key.pressed { 
-    background-color: cadetblue; 
-} 
- 
-#space-bar { 
-    min-width: 250px; 
+.key {
+    min-width: 55px;
+    height: 65px;
+    padding: 0 12px;
+    border-radius: 8px;
+    border: 2px solid black;
+    margin: 3px;
+    color: black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.key.pressed {
+    background-color: cadetblue;
+}
+
+#space-bar {
+    min-width: 250px;
 }

@@ -6,15 +6,14 @@ import Keyboard from '../../../keyboard/components/Keyboard'
 import SessionReview from "../../../challenge-review/components/SessionReview"
 import SessionControls from "../SessionControls"
 import type { ChallengeToken } from "../../types/ChallengeToken"
-import type { TypingSession } from "../../../challenge-review/types/TypingSession"
+import type { TypingSession as TypingSessionData } from "../../../challenge-review/types/TypingSession"
 import './style.css'
 
 interface SessionProps {
     challenge: ChallengeToken[]
-    onComplete: () => void
 }
 
-function TypingSession({ challenge, onComplete }: SessionProps) {
+function TypingSession({ challenge }: SessionProps) {
     const navigate = useNavigate()
     // Session state
     const [id] = useState(() => uuidv4())
@@ -142,7 +141,7 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
 
     if (isComplete) {
         // Build session data object matching Session interface
-        const sessionData: TypingSession = {
+        const sessionData: TypingSessionData = {
             id,
             challenge,
             submittedTokens,
@@ -170,10 +169,8 @@ function TypingSession({ challenge, onComplete }: SessionProps) {
                     challengeTokens={challenge}
                     submittedTokens={submittedTokens}
                     cursor={cursor} />
-                {!isComplete && (
-                    <Keyboard
-                        onTokenSubmit={submitToken} />
-                )}
+
+                <Keyboard onTokenSubmit={submitToken} />
             </div>
         )
     }

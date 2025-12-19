@@ -2,7 +2,7 @@ import ChallengeSelect from "../../features/challenge-selection/components/Chall
 
 export default function Challenges() {
     return (
-        <div>
+        <div className="challenges-view">
             <h2>Select a Challenge</h2>
             <p>Choose a challenge to get started</p>
 
