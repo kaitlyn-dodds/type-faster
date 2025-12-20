@@ -1,6 +1,6 @@
-import { easyChallengeA } from "./easy-a"
-import { easyChallengeB } from "./easy-b"
-import { easyChallengeC } from "./easy-c"
+import { easyChallengeA } from "./brown-fox"
+import { easyChallengeB } from "./easy-morning"
+import { easyChallengeC } from "./fingers"
 
 export const challenges = [
     easyChallengeA,
