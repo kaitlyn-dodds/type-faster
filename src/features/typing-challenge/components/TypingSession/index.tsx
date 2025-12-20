@@ -30,7 +30,7 @@ function TypingSession({ challenge }: SessionProps) {
     const [cursor, setCursor] = useState(0)
 
     const trackCharacterSubmission = (token: ChallengeToken) => {
-        const expectedToken = challenge.challengeTokens[cursor]
+        const expectedToken = challenge.tokens[cursor]
         setTotalCharacters(prev => prev + 1)
 
         if (expectedToken && token.value === expectedToken.value) {
@@ -43,7 +43,7 @@ function TypingSession({ challenge }: SessionProps) {
 
     const isRemovingCorrectCharacter = (token: ChallengeToken): boolean => {
         if (token.value === 'Backspace') return false
-        const expectedToken = challenge.challengeTokens[cursor]
+        const expectedToken = challenge.tokens[cursor]
         if (!expectedToken) return false
         return token.value === expectedToken.value
     }
@@ -128,10 +128,10 @@ function TypingSession({ challenge }: SessionProps) {
 
     // Check if challenge is complete
     useEffect(() => {
-        if (submittedTokens.length === challenge.challengeTokens.length) {
+        if (submittedTokens.length === challenge.tokens.length) {
             // Check if all tokens match
             const allMatch = submittedTokens.every((token, index) =>
-                token.value === challenge.challengeTokens[index].value
+                token.value === challenge.tokens[index].value
             )
 
             if (allMatch) {
@@ -144,7 +144,7 @@ function TypingSession({ challenge }: SessionProps) {
         // Build session data object matching Session interface
         const sessionData: TypingSessionData = {
             id,
-            challenge: challenge.challengeTokens,
+            challenge: challenge.tokens,
             submittedTokens,
             totalTimeSeconds,
             totalCharacters,
@@ -167,7 +167,7 @@ function TypingSession({ challenge }: SessionProps) {
                 />
 
                 <ChallengeText
-                    challengeTokens={challenge.challengeTokens}
+                    challengeTokens={challenge.tokens}
                     submittedTokens={submittedTokens}
                     cursor={cursor} />
 

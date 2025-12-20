@@ -1,20 +1,31 @@
 import type { TypingChallenge } from "../../typing-challenge/types/typing-challenge";
 
 // easy challenges
-import { challenges as easyChallenges } from "../../../data/challenges/easy";
+import brownFoxJson from "../../../data/challenges/easy/brown-fox.json";
+import easyMorningJson from "../../../data/challenges/easy/easy-morning.json";
+import easyFingersJson from "../../../data/challenges/easy/easy-fingers.json";
+
 // medium challenges
-import { challenges as mediumChallenges } from "../../../data/challenges/medium";
+import octopusJson from "../../../data/challenges/medium/octopus.json";
+import adventureMoviesJson from "../../../data/challenges/medium/adventure-movies.json";
+import fantasyNovelsJson from "../../../data/challenges/medium/fantasy-novels.json";
+
 // hard challenges
-import { challenges as hardChallenges } from "../../../data/challenges/hard";
-// expert challenges
-import { challenges as expertChallenges } from "../../../data/challenges/expert";
+import starWarsJson from "../../../data/challenges/hard/star-wars.json";
+import stephenKingsQuotesJson from "../../../data/challenges/hard/stephen-kings-quotes.json";
+import steveJobsQuotesJson from "../../../data/challenges/hard/steve-jobs-quotes.json";
 
 // collect all challenges
 const challenges = [
-    ...easyChallenges,
-    ...mediumChallenges,
-    ...hardChallenges,
-    ...expertChallenges
+    brownFoxJson as TypingChallenge,
+    easyMorningJson as TypingChallenge,
+    easyFingersJson as TypingChallenge,
+    octopusJson as TypingChallenge,
+    adventureMoviesJson as TypingChallenge,
+    fantasyNovelsJson as TypingChallenge,
+    starWarsJson as TypingChallenge,
+    stephenKingsQuotesJson as TypingChallenge,
+    steveJobsQuotesJson as TypingChallenge,
 ];
 
 export function getChallengesByDifficulty(

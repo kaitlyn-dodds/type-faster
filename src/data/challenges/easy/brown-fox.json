@@ -1,0 +1,851 @@
+{
+    "id": "easy-brown-fox",
+    "name": "The Quick Brown Fox",
+    "difficulty": "easy",
+    "tokens": [
+        {
+            "value": "T",
+            "isEntered": false
+        },
+        {
+            "value": "h",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "q",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "k",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "b",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "w",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "f",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "x",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "j",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "m",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "v",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "h",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "l",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "z",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "g",
+            "isEntered": false
+        },
+        {
+            "value": ".",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "T",
+            "isEntered": false
+        },
+        {
+            "value": "h",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "f",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "g",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "b",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "i",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "l",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "v",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "l",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": ".",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "K",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "h",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "l",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "x",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "f",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "n",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "u",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "h",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "w",
+            "isEntered": false
+        },
+        {
+            "value": "o",
+            "isEntered": false
+        },
+        {
+            "value": "r",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "s",
+            "isEntered": false
+        },
+        {
+            "value": "t",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "d",
+            "isEntered": false
+        },
+        {
+            "value": "y",
+            "isEntered": false
+        },
+        {
+            "value": " ",
+            "isEntered": false
+        },
+        {
+            "value": "p",
+            "isEntered": false
+        },
+        {
+            "value": "a",
+            "isEntered": false
+        },
+        {
+            "value": "c",
+            "isEntered": false
+        },
+        {
+            "value": "e",
+            "isEntered": false
+        },
+        {
+            "value": ".",
+            "isEntered": false
+        }
+    ]
+}
