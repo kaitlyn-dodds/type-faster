@@ -2,11 +2,11 @@
 import fs from "fs";
 
 // ====== VALUES ======
-const id = "steve-jobs";
-const name = "Steve Jobs Quotes";
-const difficulty = "hard";
+const id = "software-tools";
+const name = "Software Tools";
+const difficulty = "expert";
 const text =
-    "Steve Jobs was known for insisting that technology should feel intuitive, even if the engineering behind it was complex. During product launches, he focused on experience over specifications, famously saying, “Design is not just what it looks like.” That mindset shaped how people interacted with devices, emphasizing clarity, simplicity, and deliberate choices.";
+    "";
 
 // Convert each character into a ChallengeToken object
 const tokens = Array.from(text).map((char) => ({

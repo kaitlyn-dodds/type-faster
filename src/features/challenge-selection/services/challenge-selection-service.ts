@@ -15,6 +15,11 @@ import starWarsJson from "../../../data/challenges/hard/star-wars.json";
 import stephenKingsQuotesJson from "../../../data/challenges/hard/stephen-kings-quotes.json";
 import steveJobsQuotesJson from "../../../data/challenges/hard/steve-jobs-quotes.json";
 
+// expert challenges
+import jrrtolkienJson from "../../../data/challenges/expert/jrr-tolkien.json";
+import movieLinesJson from "../../../data/challenges/expert/movie-lines.json";
+import softwareToolsJson from "../../../data/challenges/expert/software-tools.json";
+
 // collect all challenges
 const challenges = [
     brownFoxJson as TypingChallenge,
@@ -26,6 +31,9 @@ const challenges = [
     starWarsJson as TypingChallenge,
     stephenKingsQuotesJson as TypingChallenge,
     steveJobsQuotesJson as TypingChallenge,
+    jrrtolkienJson as TypingChallenge,
+    movieLinesJson as TypingChallenge,
+    softwareToolsJson as TypingChallenge,
 ];
 
 export function getChallengesByDifficulty(
