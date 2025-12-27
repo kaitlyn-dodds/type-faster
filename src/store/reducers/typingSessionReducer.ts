@@ -8,7 +8,11 @@ interface TypingSessionState {
     session: TypingSession,
     processingToken: boolean,
     cursorIndex: number,
-    isComplete: boolean
+    isComplete: boolean,
+    timer: {
+        started: boolean,
+        elapsedSeconds: number
+    }
 }
 
 export const typingSessionReducer = createSlice({
@@ -27,7 +31,11 @@ export const typingSessionReducer = createSlice({
         } as TypingSession,
         processingToken: false,
         cursorIndex: 0,
-        isComplete: false
+        isComplete: false,
+        timer: {
+            started: false,
+            elapsedSeconds: 0
+        }
     } as TypingSessionState,
     reducers: {
         // Processed tokens
@@ -100,8 +108,21 @@ export const typingSessionReducer = createSlice({
             state.cursorIndex--
         },
         // Complete
-        completeSession: (state) => {
+        finishTypingSession: (state) => {
             state.isComplete = true
+            state.timer.started = false
+
+            state.session.totalTimeSeconds = state.timer.elapsedSeconds
+        },
+        // Timer
+        startTimer: (state) => {
+            state.timer.started = true
+        },
+        stopTimer: (state) => {
+            state.timer.started = false
+        },
+        incrementTimerSeconds: (state) => {
+            state.timer.elapsedSeconds++
         },
         // Reset
         reset: (state) => {
@@ -120,6 +141,11 @@ export const typingSessionReducer = createSlice({
             state.cursorIndex = 0
             state.processingToken = false
             state.isComplete = false
+
+            state.timer = {
+                started: false,
+                elapsedSeconds: 0
+            }
         }
     }
 })
@@ -139,7 +165,10 @@ export const {
     incrementTotalCharacters,
     incrementCursorIndex,
     decrementCursorIndex,
-    completeSession,
+    startTimer,
+    stopTimer,
+    incrementTimerSeconds,
+    finishTypingSession,
     reset
 } = typingSessionReducer.actions
 

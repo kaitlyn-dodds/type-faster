@@ -1,13 +1,17 @@
 import Timer from "../../../../components/Timer"
 import './style.css'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../store/store'
 
 interface SessionControlsProps {
-    elapsedSeconds: number
     onQuit: () => void
     onRestart: () => void
 }
 
-function SessionControls({ elapsedSeconds, onQuit, onRestart }: SessionControlsProps) {
+function SessionControls({ onQuit, onRestart }: SessionControlsProps) {
+
+    const elapsedSeconds = useSelector((state: RootState) => state.typingSession.timer.elapsedSeconds)
+
     return (
         <div className="session-controls">
             <Timer elapsedSeconds={elapsedSeconds} />

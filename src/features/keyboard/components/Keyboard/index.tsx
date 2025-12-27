@@ -3,9 +3,10 @@ import Key from '../Key'
 import { useEffect, useState } from 'react'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../data/constants/default_keyboard_layout'
 import type { KeyData } from '../../types/KeyData'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import type { ChallengeToken } from '../../../typing-challenge/types/ChallengeToken'
 import { addUnprocessedToken } from '../../../../store/reducers/typingSessionReducer'
+import type { RootState } from '../../../../store/store'
 
 function getKeyByCode(keyCode: string) {
     return DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === keyCode)
@@ -66,9 +67,12 @@ function deriveTokenFromKeys(keys: Set<KeyData>) {
     console.log("No valid key found")
 }
 
-function Keyboard() {
+function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
 
     const dispatch = useDispatch()
+
+    const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
+
     const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
 
     useEffect(() => {
@@ -77,6 +81,12 @@ function Keyboard() {
             const key = getKeyByCode(e.code)
 
             if (key) {
+                // start timer if not started
+                if (!timerStarted) {
+                    console.log("Starting timer")
+                    onStartTimer()
+                }
+
                 // TODO: move token derivation to store
                 const newPressedKeys = new Set(pressedKeys)
                 newPressedKeys.add(key)

@@ -2,7 +2,7 @@ import { createListenerMiddleware } from '@reduxjs/toolkit'
 import {
     addProcessedToken,
     addUnprocessedToken,
-    completeSession,
+    finishTypingSession,
     decrementCorrectCharacters,
     decrementCursorIndex,
     incrementBackspaces,
@@ -73,7 +73,7 @@ typingSessionListener.startListening({
 
         // check if session is complete
         if (typingSession.cursorIndex === typingSession.session.challenge.length - 1) {
-            listenerApi.dispatch(completeSession())
+            listenerApi.dispatch(finishTypingSession())
         }
     },
 })
