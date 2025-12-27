@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 interface TypingSessionState {
     session: TypingSession,
     processingToken: boolean,
-    cursorIndex: number
+    cursorIndex: number,
+    isComplete: boolean
 }
 
 export const typingSessionReducer = createSlice({
@@ -25,7 +26,8 @@ export const typingSessionReducer = createSlice({
             totalTimeSeconds: 0,
         } as TypingSession,
         processingToken: false,
-        cursorIndex: 0
+        cursorIndex: 0,
+        isComplete: false
     } as TypingSessionState,
     reducers: {
         // Processed tokens
@@ -33,9 +35,14 @@ export const typingSessionReducer = createSlice({
             // Add token to the end
             state.session.processedTokens.push(action.payload)
         },
-        popProcessedToken: (state) => {
+        popProcessedToken: (state, action: PayloadAction<ChallengeToken>) => {
             // Remove token from the end
-            state.session.processedTokens.pop()
+            const lastProcessedToken: ChallengeToken | undefined = state.session.processedTokens.pop()
+
+            // check that token matches expected token
+            if (lastProcessedToken?.value !== action.payload.value) {
+                console.warn("Popped token does not match expected token")
+            }
         },
         addUnprocessedToken: (state, action: PayloadAction<ChallengeToken>) => {
             // Add token to the end
@@ -63,6 +70,9 @@ export const typingSessionReducer = createSlice({
         incrementCorrectCharacters: (state) => {
             state.session.correctCharacters++
         },
+        decrementCorrectCharacters: (state) => {
+            state.session.correctCharacters--
+        },
         // Incorrect Characters
         incrementIncorrectCharacters: (state) => {
             state.session.incorrectCharacters++
@@ -75,10 +85,28 @@ export const typingSessionReducer = createSlice({
         incrementTotalCharacters: (state) => {
             state.session.totalCharacters++
         },
+        // Cursor Index
+        incrementCursorIndex: (state) => {
+            // cursor index tracks expected place in challenge
+            // should not be incremented beyond length of challenge
+            if (state.cursorIndex >= state.session.challenge.length - 1) return
+
+            state.cursorIndex++
+        },
+        decrementCursorIndex: (state) => {
+            // don't decrement past 0
+            if (state.cursorIndex <= 0) return
+
+            state.cursorIndex--
+        },
+        // Complete
+        completeSession: (state) => {
+            state.isComplete = true
+        },
         // Reset
         reset: (state) => {
             state.session = {
-                id: "", // TODO: generate id
+                id: uuidv4(),
                 challenge: [] as ChallengeToken[],
                 processedTokens: [] as ChallengeToken[],
                 unprocessedTokens: [] as ChallengeToken[],
@@ -91,6 +119,7 @@ export const typingSessionReducer = createSlice({
 
             state.cursorIndex = 0
             state.processingToken = false
+            state.isComplete = false
         }
     }
 })
@@ -104,9 +133,13 @@ export const {
     setChallenge,
     setTotalTimeSeconds,
     incrementCorrectCharacters,
+    decrementCorrectCharacters,
     incrementIncorrectCharacters,
     incrementBackspaces,
     incrementTotalCharacters,
+    incrementCursorIndex,
+    decrementCursorIndex,
+    completeSession,
     reset
 } = typingSessionReducer.actions
 
