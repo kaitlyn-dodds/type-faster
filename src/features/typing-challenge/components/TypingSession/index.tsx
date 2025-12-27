@@ -5,10 +5,13 @@ import ChallengeText from "../ChallengeText"
 import Keyboard from '../../../keyboard/components/Keyboard'
 import SessionReview from "../../../challenge-review/components/SessionReview"
 import SessionControls from "../SessionControls"
-import type { ChallengeToken } from "../../types/ChallengeToken"
 import type { TypingSession as TypingSessionData } from "../../../challenge-review/types/TypingSession"
 import './style.css'
 import type { TypingChallenge } from '../../types/typing-challenge'
+import { clearUnprocessedTokens } from '../../../../store/reducers/unprocessedTokensReducer'
+import { clearProcessedTokens } from '../../../../store/reducers/processedTokensReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../../../../store/store'
 
 interface SessionProps {
     challenge: TypingChallenge
@@ -16,9 +19,12 @@ interface SessionProps {
 
 function TypingSession({ challenge }: SessionProps) {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const processedTokens = useSelector((state: RootState) => state.processedTokens)
+
     // Session state
     const [id] = useState(() => uuidv4())
-    const [submittedTokens, setSubmittedTokens] = useState<ChallengeToken[]>([])
     const [timerStarted, setTimerStarted] = useState(false)
     const [elapsedSeconds, setElapsedSeconds] = useState(0)
     const [totalTimeSeconds, setTotalTimeSeconds] = useState(0)
@@ -29,61 +35,46 @@ function TypingSession({ challenge }: SessionProps) {
     const [isComplete, setIsComplete] = useState(false)
     const [cursor, setCursor] = useState(0)
 
-    const trackCharacterSubmission = (token: ChallengeToken) => {
-        const expectedToken = challenge.tokens[cursor]
-        setTotalCharacters(prev => prev + 1)
+    // TODO: move character tracking to store
+    // const trackCharacterSubmission = (token: ChallengeToken) => {
+    //     const expectedToken = challenge.tokens[cursor]
+    //     setTotalCharacters(prev => prev + 1)
 
-        if (expectedToken && token.value === expectedToken.value) {
-            setCorrectCharacters(prev => prev + 1)
-            setCursor(prev => prev + 1)
-        } else {
-            setIncorrectCharacters(prev => prev + 1)
-        }
-    }
+    //     if (expectedToken && token.value === expectedToken.value) {
+    //         setCorrectCharacters(prev => prev + 1)
+    //         setCursor(prev => prev + 1)
+    //     } else {
+    //         setIncorrectCharacters(prev => prev + 1)
+    //     }
+    // }
 
-    const isRemovingCorrectCharacter = (token: ChallengeToken): boolean => {
-        if (token.value === 'Backspace') return false
-        const expectedToken = challenge.tokens[cursor]
-        if (!expectedToken) return false
-        return token.value === expectedToken.value
-    }
+    // TODO: move character removal tracking to store
+    // const isRemovingCorrectCharacter = (token: ChallengeToken): boolean => {
+    //     if (token.value === 'Backspace') return false
+    //     const expectedToken = challenge.tokens[cursor]
+    //     if (!expectedToken) return false
+    //     return token.value === expectedToken.value
+    // }
 
-    const trackCharacterRemoval = () => {
-        if (submittedTokens.length === 0) return
+    // TODO: move character removal tracking to store
+    // const trackCharacterRemoval = () => {
+    //     if (submittedTokens.length === 0) return
 
-        const lastSubmittedToken = submittedTokens[submittedTokens.length - 1]
+    //     const lastSubmittedToken = submittedTokens[submittedTokens.length - 1]
 
-        // If removing a correct character
-        if (isRemovingCorrectCharacter(lastSubmittedToken)) {
-            setCorrectCharacters(prev => prev - 1)
-            setCursor(prev => prev - 1) // going backwards
-        }
-    }
-
-    const submitToken = (token: ChallengeToken) => {
-        if (!timerStarted) {
-            setTimerStarted(true)
-        }
-
-        // Handle backspace separately
-        if (token.value === "Backspace") {
-            setBackspaces(prev => prev + 1)
-            popToken()
-            return
-        }
-
-        // Track and submit non-backspace tokens
-        trackCharacterSubmission(token)
-        setSubmittedTokens(prev => [...prev, token])
-    }
-
-    const popToken = () => {
-        trackCharacterRemoval()
-        setSubmittedTokens(prev => prev.slice(0, prev.length - 1))
-    }
+    //     // If removing a correct character
+    //     if (isRemovingCorrectCharacter(lastSubmittedToken)) {
+    //         setCorrectCharacters(prev => prev - 1)
+    //         setCursor(prev => prev - 1) // going backwards
+    //     }
+    // }
 
     const handleRestart = () => {
-        setSubmittedTokens([])
+        // handle state reset
+        dispatch(clearUnprocessedTokens())
+        dispatch(clearProcessedTokens())
+
+
         setTimerStarted(false)
         setElapsedSeconds(0)
         setTotalTimeSeconds(0)
@@ -127,25 +118,26 @@ function TypingSession({ challenge }: SessionProps) {
     }, [timerStarted, isComplete])
 
     // Check if challenge is complete
-    useEffect(() => {
-        if (submittedTokens.length === challenge.tokens.length) {
-            // Check if all tokens match
-            const allMatch = submittedTokens.every((token, index) =>
-                token.value === challenge.tokens[index].value
-            )
+    // TODO: replace w/ some sort of event listener
+    // useEffect(() => {
+    //     if (submittedTokens.length === challenge.tokens.length) {
+    //         // Check if all tokens match
+    //         const allMatch = submittedTokens.every((token, index) =>
+    //             token.value === challenge.tokens[index].value
+    //         )
 
-            if (allMatch) {
-                completeSession()
-            }
-        }
-    }, [submittedTokens, challenge])
+    //         if (allMatch) {
+    //             completeSession()
+    //         }
+    //     }
+    // }, [submittedTokens, challenge])
 
     if (isComplete) {
         // Build session data object matching Session interface
         const sessionData: TypingSessionData = {
             id,
             challenge: challenge.tokens,
-            submittedTokens,
+            submittedTokens: processedTokens,
             totalTimeSeconds,
             totalCharacters,
             correctCharacters,
@@ -168,10 +160,9 @@ function TypingSession({ challenge }: SessionProps) {
 
                 <ChallengeText
                     challengeTokens={challenge.tokens}
-                    submittedTokens={submittedTokens}
                     cursor={cursor} />
 
-                <Keyboard onTokenSubmit={submitToken} />
+                <Keyboard />
             </div>
         )
     }

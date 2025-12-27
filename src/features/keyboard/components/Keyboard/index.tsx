@@ -1,13 +1,11 @@
 import './style.css'
 import Key from '../Key'
 import { useEffect, useState } from 'react'
-import type { ChallengeToken } from '../../../typing-challenge/types/ChallengeToken'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../data/constants/default_keyboard_layout'
 import type { KeyData } from '../../types/KeyData'
-
-interface KeyboardProps {
-    onTokenSubmit: (token: ChallengeToken) => void
-}
+import { useDispatch } from 'react-redux'
+import { addUnprocessedToken } from '../../../../store/reducers/unprocessedTokensReducer'
+import type { ChallengeToken } from '../../../typing-challenge/types/ChallengeToken'
 
 function getKeyByCode(keyCode: string) {
     return DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === keyCode)
@@ -68,15 +66,18 @@ function deriveTokenFromKeys(keys: Set<KeyData>) {
     console.log("No valid key found")
 }
 
-function Keyboard({ onTokenSubmit }: KeyboardProps) {
+function Keyboard() {
+
+    const dispatch = useDispatch()
     const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
 
     useEffect(() => {
-        // adds key to pressedKeys set
+        // derive token from pressed keys and add to store
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
 
             if (key) {
+                // TODO: move token derivation to store
                 const newPressedKeys = new Set(pressedKeys)
                 newPressedKeys.add(key)
                 setPressedKeys(newPressedKeys)
@@ -86,7 +87,7 @@ function Keyboard({ onTokenSubmit }: KeyboardProps) {
                 // nothing to do if no token
                 if (!token) return
 
-                onTokenSubmit(token)
+                dispatch(addUnprocessedToken(token))
 
                 // need to prevent the default action here
                 e.preventDefault()
@@ -95,6 +96,7 @@ function Keyboard({ onTokenSubmit }: KeyboardProps) {
             }
         }
 
+        // remove key from pressedKeys set
         const handleKeyUp = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
 
@@ -118,7 +120,7 @@ function Keyboard({ onTokenSubmit }: KeyboardProps) {
             window.removeEventListener("keydown", handleKeyDown)
             window.removeEventListener("keyup", handleKeyUp)
         }
-    }, [pressedKeys, onTokenSubmit])
+    }, [pressedKeys, addUnprocessedToken])
 
     return (
         <div className="keyboard">

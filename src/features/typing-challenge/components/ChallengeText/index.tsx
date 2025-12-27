@@ -1,14 +1,17 @@
 import './style.css'
 import ChallengeTokenDisplay from "../ChallengeToken"
 import type { ChallengeToken } from "../../types/ChallengeToken"
+import { useSelector } from "react-redux"
+import type { RootState } from "../../../../store/store"
 
 interface ChallengeProps {
-    challengeTokens: ChallengeToken[],
-    submittedTokens: ChallengeToken[],
+    challengeTokens: ChallengeToken[]
     cursor: number
 }
 
-function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengeProps) {
+function ChallengeText({ challengeTokens, cursor }: ChallengeProps) {
+    const processedTokens = useSelector((state: RootState) => state.processedTokens)
+
     return (
         <div className="challenge-text">
             {
@@ -33,7 +36,7 @@ function ChallengeText({ challengeTokens, submittedTokens, cursor }: ChallengePr
                             {word.map((token) => {
                                 const index = globalIndex++
                                 let status: 'default' | 'entered' | 'enteredIncorrect' = 'default'
-                                const submittedToken = submittedTokens[index]
+                                const submittedToken = processedTokens[index]
 
                                 if (submittedToken) {
                                     if (submittedToken.value === token.value) {
