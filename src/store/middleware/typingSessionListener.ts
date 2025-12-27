@@ -1,22 +1,26 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-import { addUnprocessedToken, startProcessing, stopProcessing } from '../reducers/unprocessedTokensReducer'
+import {
+    addProcessedToken,
+    addUnprocessedToken,
+    popProcessedToken,
+    startProcessing,
+    stopProcessing
+} from '../reducers/typingSessionReducer'
 import type { ChallengeToken } from '../../features/typing-challenge/types/ChallengeToken'
-import { addProcessedToken, popProcessedToken } from '../reducers/processedTokensReducer'
-import type { UnprocessedTokensState } from '../reducers/unprocessedTokensReducer'
 import type { RootState } from '../store'
 
-export const unprocessedTokensListener = createListenerMiddleware()
+export const typingSessionListener = createListenerMiddleware()
 
-unprocessedTokensListener.startListening({
+typingSessionListener.startListening({
     actionCreator: addUnprocessedToken,
     effect: (_, listenerApi) => {
         const state: RootState = listenerApi.getState() as RootState
-        const unprocessedTokensState = state.unprocessedTokens as UnprocessedTokensState
+        const typingSession = state.typingSession
 
         // only process if not already processing and there is something to process
-        if (unprocessedTokensState.processing || unprocessedTokensState.tokens.length === 0) return
+        if (typingSession.processingToken || typingSession.session.unprocessedTokens.length === 0) return
 
-        const token: ChallengeToken = unprocessedTokensState.tokens[unprocessedTokensState.tokens.length - 1] // FIFO principle
+        const token: ChallengeToken = typingSession.session.unprocessedTokens[typingSession.session.unprocessedTokens.length - 1] // FIFO principle
 
         // start processing
         listenerApi.dispatch(startProcessing())

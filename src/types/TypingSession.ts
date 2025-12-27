@@ -10,9 +10,13 @@ export interface TypingSession {
      */
     challenge: ChallengeToken[]
     /**
-     * The tokens that the user has submitted
+     * All processed tokens that the user submitted
      */
-    submittedTokens: ChallengeToken[]
+    processedTokens: ChallengeToken[]
+    /**
+     * All raw tokens that the user submitted, in order
+     */
+    unprocessedTokens: ChallengeToken[]
     /**
      * The total time the user spent typing in seconds
      */

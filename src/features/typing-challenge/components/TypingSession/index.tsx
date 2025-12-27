@@ -1,39 +1,24 @@
 import { useState, useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { useNavigate } from 'react-router-dom'
 import ChallengeText from "../ChallengeText"
 import Keyboard from '../../../keyboard/components/Keyboard'
 import SessionReview from "../../../challenge-review/components/SessionReview"
 import SessionControls from "../SessionControls"
-import type { TypingSession as TypingSessionData } from "../../../challenge-review/types/TypingSession"
 import './style.css'
-import type { TypingChallenge } from '../../types/typing-challenge'
-import { clearUnprocessedTokens } from '../../../../store/reducers/unprocessedTokensReducer'
-import { clearProcessedTokens } from '../../../../store/reducers/processedTokensReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../../../store/store'
+import { reset, setTotalTimeSeconds } from '../../../../store/reducers/typingSessionReducer'
 
-interface SessionProps {
-    challenge: TypingChallenge
-}
-
-function TypingSession({ challenge }: SessionProps) {
+function TypingSession() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const processedTokens = useSelector((state: RootState) => state.processedTokens)
+    const session = useSelector((state: RootState) => state.typingSession.session)
 
-    // Session state
-    const [id] = useState(() => uuidv4())
+    // local session state
     const [timerStarted, setTimerStarted] = useState(false)
     const [elapsedSeconds, setElapsedSeconds] = useState(0)
-    const [totalTimeSeconds, setTotalTimeSeconds] = useState(0)
-    const [totalCharacters, setTotalCharacters] = useState(0)
-    const [correctCharacters, setCorrectCharacters] = useState(0)
-    const [incorrectCharacters, setIncorrectCharacters] = useState(0)
-    const [backspaces, setBackspaces] = useState(0)
     const [isComplete, setIsComplete] = useState(false)
-    const [cursor, setCursor] = useState(0)
 
     // TODO: move character tracking to store
     // const trackCharacterSubmission = (token: ChallengeToken) => {
@@ -71,29 +56,21 @@ function TypingSession({ challenge }: SessionProps) {
 
     const handleRestart = () => {
         // handle state reset
-        dispatch(clearUnprocessedTokens())
-        dispatch(clearProcessedTokens())
-
+        dispatch(reset())
 
         setTimerStarted(false)
-        setElapsedSeconds(0)
-        setTotalTimeSeconds(0)
-        setTotalCharacters(0)
-        setCorrectCharacters(0)
-        setIncorrectCharacters(0)
-        setBackspaces(0)
         setIsComplete(false)
-        setCursor(0)
     }
 
     const completeSession = () => {
         // Use elapsed seconds from timer
-        setTotalTimeSeconds(elapsedSeconds)
+        dispatch(setTotalTimeSeconds(elapsedSeconds))
         setIsComplete(true)
     }
 
     const handleQuit = () => {
         navigate('/challenges')
+        dispatch(reset())
     }
 
     // Timer with 10-minute failsafe
@@ -133,20 +110,7 @@ function TypingSession({ challenge }: SessionProps) {
     // }, [submittedTokens, challenge])
 
     if (isComplete) {
-        // Build session data object matching Session interface
-        const sessionData: TypingSessionData = {
-            id,
-            challenge: challenge.tokens,
-            submittedTokens: processedTokens,
-            totalTimeSeconds,
-            totalCharacters,
-            correctCharacters,
-            incorrectCharacters,
-            backspaces
-        }
-
         return <SessionReview
-            session={sessionData}
             onRestartClick={handleRestart}
         />
     } else {
@@ -158,9 +122,7 @@ function TypingSession({ challenge }: SessionProps) {
                     onRestart={handleRestart}
                 />
 
-                <ChallengeText
-                    challengeTokens={challenge.tokens}
-                    cursor={cursor} />
+                <ChallengeText />
 
                 <Keyboard />
             </div>

@@ -1,15 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import unprocessedTokensReducer from "./reducers/unprocessedTokensReducer";
-import processedTokensReducer from "./reducers/processedTokensReducer";
-import { unprocessedTokensListener } from "./middleware/unprocessedTokensListener";
+import { typingSessionListener } from "./middleware/typingSessionListener";
+import typingSessionReducer from "./reducers/typingSessionReducer";
 
 export const store = configureStore({
     reducer: {
-        unprocessedTokens: unprocessedTokensReducer,
-        processedTokens: processedTokensReducer,
+        typingSession: typingSessionReducer
     },
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware().prepend(unprocessedTokensListener.middleware)
+        getDefaultMiddleware().prepend(typingSessionListener.middleware)
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

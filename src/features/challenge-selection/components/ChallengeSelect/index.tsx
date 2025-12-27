@@ -2,14 +2,20 @@ import { getChallengesByDifficulty } from "../../services/challenge-selection-se
 import type { TypingChallenge } from "../../../typing-challenge/types/typing-challenge";
 import { useNavigate } from "react-router-dom";
 import './style.css';
+import { useDispatch } from "react-redux";
+import { setChallenge } from "../../../../store/reducers/typingSessionReducer";
 
 export default function ChallengeSelect() {
     const difficulties: TypingChallenge['difficulty'][] = ["easy", "medium", "hard", "expert"];
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChallengeSelect = (challenge: TypingChallenge) => {
         navigate("/typing-challenge", { state: { challenge } });
+
+        // set challenge in store
+        dispatch(setChallenge(challenge.tokens))
     };
 
     return (

@@ -4,13 +4,10 @@ import type { ChallengeToken } from "../../types/ChallengeToken"
 import { useSelector } from "react-redux"
 import type { RootState } from "../../../../store/store"
 
-interface ChallengeProps {
-    challengeTokens: ChallengeToken[]
-    cursor: number
-}
-
-function ChallengeText({ challengeTokens, cursor }: ChallengeProps) {
-    const processedTokens = useSelector((state: RootState) => state.processedTokens)
+function ChallengeText() {
+    const challengeTokens = useSelector((state: RootState) => state.typingSession.session.challenge)
+    const processedTokens = useSelector((state: RootState) => state.typingSession.session.processedTokens)
+    const cursorIndex = useSelector((state: RootState) => state.typingSession.cursorIndex)
 
     return (
         <div className="challenge-text">
@@ -51,7 +48,7 @@ function ChallengeText({ challengeTokens, cursor }: ChallengeProps) {
                                         key={index}
                                         display={token.value}
                                         status={status}
-                                        isCursor={index === cursor}
+                                        isCursor={index === cursorIndex}
                                     />
                                 )
                             })}

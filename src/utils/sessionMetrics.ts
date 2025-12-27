@@ -1,4 +1,4 @@
-import type { TypingSession } from '../features/challenge-review/types/TypingSession'
+import type { TypingSession } from '../types/TypingSession'
 import type { StatQuality } from '../features/challenge-review/types/StatQuality'
 
 export function formatTime(totalSeconds: number): string {

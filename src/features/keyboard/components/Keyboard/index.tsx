@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../data/constants/default_keyboard_layout'
 import type { KeyData } from '../../types/KeyData'
 import { useDispatch } from 'react-redux'
-import { addUnprocessedToken } from '../../../../store/reducers/unprocessedTokensReducer'
 import type { ChallengeToken } from '../../../typing-challenge/types/ChallengeToken'
+import { addUnprocessedToken } from '../../../../store/reducers/typingSessionReducer'
 
 function getKeyByCode(keyCode: string) {
     return DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === keyCode)

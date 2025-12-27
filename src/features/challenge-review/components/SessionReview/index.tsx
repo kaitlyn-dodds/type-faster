@@ -1,7 +1,6 @@
 import './style.css'
 import Stat from '../Stat'
 import Button from '../../../../components/Button'
-import type { TypingSession } from "../../../../features/challenge-review/types/TypingSession"
 import {
     formatTime,
     calculateRawWPM,
@@ -12,14 +11,17 @@ import {
     calculateAccuracyQuality
 } from '../../../../utils/sessionMetrics'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../../../store/store'
 
 interface SessionReviewProps {
-    session: TypingSession
     onRestartClick: () => void
 }
 
-function SessionReview({ session, onRestartClick }: SessionReviewProps) {
+function SessionReview({ onRestartClick }: SessionReviewProps) {
     const navigate = useNavigate()
+
+    const session = useSelector((state: RootState) => state.typingSession.session)
 
     const rawWPM = calculateRawWPM(session)
     const netWPM = calculateNetWPM(session)
