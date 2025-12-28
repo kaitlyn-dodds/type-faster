@@ -6,25 +6,36 @@
 npm run build
 ```
 
-### Copy files to server
+### Copy files to server (from local machine)
 
 ```powershell
-scp -r build\* kaitlyn@192.168.0.101:/var/www/type-faster/
+scp -r dist\* kaitlyn@192.168.0.101:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
 ```
-
-Will overwrite existing files. TODO: add versioning to build folder
 
 #### Verify Files
 
 ```powershell
 ssh kaitlyn@192.168.0.101
-ls /var/www/type-faster/
+ls /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
+```
+
+#### Verify File/Directory Permissions
+
+```powershell
+sudo chown -R kaitlyn:kaitlyn /var/www/type-faster
+sudo find /var/www/type-faster -type d -exec chmod 755 {} \;
+sudo find /var/www/type-faster -type f -exec chmod 644 {} \;
+```
+
+### Set Current Release
+
+```powershell
+sudo ln -s /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION /var/www/type-faster/current
 ```
 
 ### Restart Server
 
 ```powershell
-ssh kaitlyn@192.168.0.101
 sudo systemctl restart nginx
 ```
 

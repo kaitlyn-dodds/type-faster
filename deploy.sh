@@ -7,6 +7,9 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
+# Target Server
+TARGET_SERVER="kaitlyn@192.168.0.101"
+
 # Step 1: Update version in package.json
 
 # catch uncommitted changes
@@ -48,5 +51,84 @@ export VITE_APP_VERSION=$TYPE_FASTER_APP_VERSION
 # Step 2: Build the app
 echo -e "${YELLOW}Building app with version $TYPE_FASTER_APP_VERSION...${NC}"
 npm run build
-echo -e "${GREEN}Build complete.${NC}\n"
 
+# verify build command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Build failed.${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}Build complete.${NC}\n"
+echo "\n"
+
+# Step 3: Copy files to server
+
+scp -r dist\* $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
+
+# verify copy command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Copy failed.${NC}"
+    exit 1
+fi
+
+# Step 4: Set current release
+
+# need to ssh into the server, verify file permissions, and set current release
+ssh $TARGET_SERVER `
+  "cd /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION && \
+   sudo chown -R kaitlyn:kaitlyn . && \
+   sudo find . -type d -exec chmod 755 {} \; && \
+   sudo find . -type f -exec chmod 644 {} \;" \
+   && sudo ln -s /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION /var/www/type-faster/current
+
+
+# verify set current release command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Set current release failed.${NC}"
+    exit 1
+fi
+
+# Step 5: Restart server
+
+# need to ssh into the server and restart nginx
+ssh $TARGET_SERVER << EOF
+    sudo systemctl restart nginx
+EOF
+
+# verify restart command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Restart failed.${NC}"
+    exit 1
+fi
+
+# Step 6: Verify
+
+# need to ssh into the server and verify the app is running
+ssh $TARGET_SERVER << EOF
+    curl http://localhost
+EOF
+
+# verify curl command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Verify failed.${NC}"
+    exit 1
+fi
+
+# Step 7: Clean up
+
+# need to ssh into the server and clean up old releases
+ssh $TARGET_SERVER << EOF
+    sudo rm -rf /var/www/type-faster/releases/*
+EOF
+
+# verify clean up command didn't fail
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Clean up failed.${NC}"
+    exit 1
+fi
+
+# Step 8: Done
+
+# print success message
+echo -e "${GREEN}Deploy complete.${NC}"
+exit 0
