@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import Main from "./views/Main";
 import Challenges from "./views/Challenges";
 import Leaderboard from "./views/Leaderboard";
-import TypingChallengeView from "./views/TypingChallenge";
+import TypingChallengeView from "./views/TypingChallengeView";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 

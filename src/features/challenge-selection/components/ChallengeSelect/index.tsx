@@ -12,10 +12,8 @@ export default function ChallengeSelect() {
     const dispatch = useDispatch();
 
     const handleChallengeSelect = (challenge: TypingChallenge) => {
-        navigate("/typing-challenge", { state: { challenge } });
-
-        // set challenge in store
         dispatch(setChallenge(challenge.tokens))
+        navigate("/typing-challenge");
     };
 
     return (

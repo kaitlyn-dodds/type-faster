@@ -124,9 +124,11 @@ export const typingSessionReducer = createSlice({
         },
         // Reset
         reset: (state) => {
+            const prevChallenge = state.session.challenge
+
             state.session = {
                 id: uuidv4(),
-                challenge: [] as ChallengeToken[],
+                challenge: prevChallenge, // keep challenge
                 processedTokens: [] as ChallengeToken[],
                 unprocessedTokens: [] as ChallengeToken[],
                 totalCharacters: 0,

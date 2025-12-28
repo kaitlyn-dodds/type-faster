@@ -6,7 +6,7 @@ import SessionReview from "../../../challenge-review/components/SessionReview"
 import SessionControls from "../SessionControls"
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { reset, setTotalTimeSeconds, finishTypingSession, startTimer, incrementTimerSeconds } from '../../../../store/reducers/typingSessionReducer'
+import { reset, finishTypingSession, startTimer, incrementTimerSeconds } from '../../../../store/reducers/typingSessionReducer'
 import type { RootState } from '../../../../store/store'
 
 function TypingSession() {
@@ -15,18 +15,13 @@ function TypingSession() {
 
     const isComplete = useSelector((state: RootState) => state.typingSession.isComplete)
     const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
-
-    // local session state
-    const [elapsedSeconds, setElapsedSeconds] = useState(0)
+    const challenge = useSelector((state: RootState) => state.typingSession.session.challenge)
 
     const handleRestart = () => {
-        // handle state reset
         dispatch(reset())
     }
 
     const completeSession = () => {
-        // Use elapsed seconds from timer
-        dispatch(setTotalTimeSeconds(elapsedSeconds))
         dispatch(finishTypingSession())
     }
 
@@ -38,7 +33,6 @@ function TypingSession() {
     // Timer with 10-minute failsafe
     useEffect(() => {
         if (!timerStarted || isComplete) return
-        console.log("Timer started")
 
         const interval = setInterval(() => {
             dispatch(incrementTimerSeconds())
@@ -52,18 +46,25 @@ function TypingSession() {
             onRestartClick={handleRestart}
         />
     } else {
-        return (
-            <div className="challenge-session">
-                <SessionControls
-                    onQuit={handleQuit}
-                    onRestart={handleRestart}
-                />
-
-                <ChallengeText />
-
-                <Keyboard onStartTimer={() => dispatch(startTimer())} />
+        if (challenge.length === 0) {
+            return <div className="challenges-reroute">
+                <h2>Please select a challenge</h2>
+                <button onClick={() => navigate('/challenges')}>Select Challenge</button>
             </div>
-        )
+        } else {
+            return (
+                <div className="challenge-session">
+                    <SessionControls
+                        onQuit={handleQuit}
+                        onRestart={handleRestart}
+                    />
+
+                    <ChallengeText />
+
+                    <Keyboard onStartTimer={() => dispatch(startTimer())} />
+                </div>
+            )
+        }
     }
 }
 

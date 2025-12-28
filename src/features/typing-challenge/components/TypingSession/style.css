@@ -6,3 +6,15 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.challenges-reroute {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.challenges-reroute button {
+    margin-top: 1rem;
+    max-width: 20rem;
+}
