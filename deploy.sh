@@ -37,6 +37,7 @@ select opt in "${OPTIONS[@]}"; do
     esac
 done
 
+TYPE_FASTER_APP_VERSION=$(cat package.json | grep version | cut -d '"' -f 4)
 echo -e "${GREEN}Version updated to $TYPE_FASTER_APP_VERSION${NC}"
 echo "\n"
 
