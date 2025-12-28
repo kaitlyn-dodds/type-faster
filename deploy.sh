@@ -68,7 +68,11 @@ echo "\n"
 
 # Step 3: Copy files to server
 echo -e "${YELLOW}Copying files to server...${NC}"
-scp -r ./dist/* $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
+
+# create release directory
+ssh $TARGET_SERVER "mkdir -p /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION"
+
+scp -r ./dist/* $TARGET_SERVER:/var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION
 
 # verify copy command didn't fail
 if [ $? -ne 0 ]; then
@@ -88,11 +92,11 @@ echo "\n"
 
 # need to ssh into the server, verify file permissions, and set current release
 ssh $TARGET_SERVER `
-  "cd /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION && \
+  "cd /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION && \
    sudo chown -R kaitlyn:kaitlyn . && \
    sudo find . -type d -exec chmod 755 {} \; && \
    sudo find . -type f -exec chmod 644 {} \;" \
-   && sudo ln -s /var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION /var/www/type-faster/current
+   && sudo ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current
 
 
 # verify set current release command didn't fail
