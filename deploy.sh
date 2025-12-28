@@ -10,7 +10,7 @@ NC='\033[0m'
 # Target Server
 TARGET_SERVER="kaitlyn@192.168.0.101"
 
-# Step 1: Update version in package.json
+#### Step 1: Update version in package.json
 
 # catch uncommitted changes
 if [ -n "$(git status --porcelain)" ]; then
@@ -48,7 +48,7 @@ echo "\n"
 export VITE_GIT_SHA=$TYPE_FASTER_GIT_SHA
 export VITE_APP_VERSION=$TYPE_FASTER_APP_VERSION
 
-# Step 2: Build the app
+#### Step 2: Build the app
 echo -e "${YELLOW}Building app with version $TYPE_FASTER_APP_VERSION...${NC}"
 npm run build
 
@@ -66,12 +66,13 @@ fi
 echo -e "${GREEN}Build complete.${NC}\n"
 echo "\n"
 
-# Step 3: Copy files to server
+#### Step 3: Copy files to server
 echo -e "${YELLOW}Copying files to server...${NC}"
 
 # create release directory
 ssh $TARGET_SERVER "mkdir -p /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION"
 
+# copy files to release directory
 scp -r ./dist/* $TARGET_SERVER:/var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION
 
 # verify copy command didn't fail
@@ -88,7 +89,7 @@ fi
 echo -e "${GREEN}Copy complete.${NC}\n"
 echo "\n"
 
-# Step 4: Set current release
+#### Step 4: Set current release
 
 # need to ssh into the server, verify file permissions, and set current release
 ssh $TARGET_SERVER `
@@ -110,7 +111,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 5: Restart server
+#### Step 5: Restart server
 
 # need to ssh into the server and restart nginx
 ssh $TARGET_SERVER << EOF
@@ -128,7 +129,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 6: Verify
+#### Step 6: Verify
 
 # need to ssh into the server and verify the app is running
 ssh $TARGET_SERVER << EOF
@@ -146,7 +147,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 7: Clean up
+#### Step 7: Clean up
 
 # need to ssh into the server and clean up old releases
 ssh $TARGET_SERVER << EOF
@@ -164,7 +165,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Step 8: Done
+#### Step 8: Done
 
 # print success message
 echo -e "${GREEN}Deploy complete.${NC}"
