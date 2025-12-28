@@ -67,7 +67,7 @@ echo -e "${GREEN}Build complete.${NC}\n"
 echo "\n"
 
 # Step 3: Copy files to server
-
+echo -e "${YELLOW}Copying files to server...${NC}"
 scp -r ./dist/* $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
 
 # verify copy command didn't fail
@@ -80,6 +80,9 @@ if [ $? -ne 0 ]; then
 
     exit 1
 fi
+
+echo -e "${GREEN}Copy complete.${NC}\n"
+echo "\n"
 
 # Step 4: Set current release
 
