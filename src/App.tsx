@@ -7,6 +7,7 @@ import Leaderboard from "./views/Leaderboard";
 import TypingChallengeView from "./views/TypingChallengeView";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           </Routes>
         </main>
       </Router>
+      <Footer />
     </Provider>
   )
 }
