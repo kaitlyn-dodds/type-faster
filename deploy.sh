@@ -97,7 +97,7 @@ cd /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION && \
 chown -R kaitlyn:kaitlyn . && \
 find . -type d -exec chmod 755 {} \; && \
 find . -type f -exec chmod 644 {} \; && \
-ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current"
+ln -sfn /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current"
 
 
 # verify set current release command didn't fail
