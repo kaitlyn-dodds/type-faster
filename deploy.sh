@@ -47,6 +47,7 @@ echo -e "${GREEN}Version updated to $TYPE_FASTER_APP_VERSION${NC}"
 export VITE_GIT_SHA=$TYPE_FASTER_GIT_SHA
 export VITE_APP_VERSION=$TYPE_FASTER_APP_VERSION
 
+
 #### Step 2: Build the app
 echo -e "${YELLOW}Building app with version $TYPE_FASTER_APP_VERSION...${NC}"
 npm run build
@@ -63,6 +64,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo -e "${GREEN}Build complete.${NC}\n"
+
 
 #### Step 3: Copy files to server
 echo -e "${YELLOW}Copying files to server...${NC}"
@@ -85,6 +87,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo -e "${GREEN}Copy complete.${NC}\n"
+
 
 #### Step 4: Set current release
 
@@ -110,56 +113,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-#### Step 5: Restart server
 
-# need to ssh into the server and restart nginx
-ssh $TARGET_SERVER "systemctl restart nginx"
-echo -e "${GREEN}Restarted nginx.${NC}\n"
-
-# verify restart command didn't fail
-if [ $? -ne 0 ]; then
-    echo -e "${RED}Error: Restart failed.${NC}"
-
-    # remove git tags
-    git tag -d $TYPE_FASTER_APP_VERSION
-    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
-
-    exit 1
-fi
-
-#### Step 6: Verify
-
-# need to ssh into the server and verify the app is running
-# ssh $TARGET_SERVER "curl http://localhost"
-
-# # verify curl command didn't fail
-# if [ $? -ne 0 ]; then
-#     echo -e "${RED}Error: Verify failed.${NC}"
-
-#     # remove git tags
-#     git tag -d $TYPE_FASTER_APP_VERSION
-#     git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
-
-#     exit 1
-# fi
-
-# #### Step 7: Clean up
-
-# # need to ssh into the server and clean up old releases
-# ssh $TARGET_SERVER "sudo rm -rf /var/www/type-faster/releases/*"
-
-# # verify clean up command didn't fail
-# if [ $? -ne 0 ]; then
-#     echo -e "${RED}Error: Clean up failed.${NC}"
-
-#     # remove git tags
-#     git tag -d $TYPE_FASTER_APP_VERSION
-#     git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
-
-#     exit 1
-# fi
-
-#### Step 8: Done
+#### Step 5: Done
 
 # print success message
 echo -e "${GREEN}Deploy complete.${NC}"
