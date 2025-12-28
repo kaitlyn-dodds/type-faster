@@ -92,12 +92,12 @@ echo "\n"
 #### Step 4: Set current release
 
 # need to ssh into the server, verify file permissions, and set current release
-ssh $TARGET_SERVER `
-  "cd /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION && \
-   sudo chown -R kaitlyn:kaitlyn . && \
-   sudo find . -type d -exec chmod 755 {} \; && \
-   sudo find . -type f -exec chmod 644 {} \;" \
-   && sudo ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current
+ssh $TARGET_SERVER "
+cd /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION && \
+sudo chown -R kaitlyn:kaitlyn . && \
+sudo find . -type d -exec chmod 755 {} \; && \
+sudo find . -type f -exec chmod 644 {} \; && \
+sudo ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current"
 
 
 # verify set current release command didn't fail
