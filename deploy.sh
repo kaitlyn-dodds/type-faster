@@ -114,7 +114,7 @@ fi
 #### Step 5: Restart server
 
 # need to ssh into the server and restart nginx
-ssh $TARGET_SERVER "sudo systemctl restart nginx"
+ssh $TARGET_SERVER "systemctl restart nginx"
 
 # verify restart command didn't fail
 if [ $? -ne 0 ]; then
