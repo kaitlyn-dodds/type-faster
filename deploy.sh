@@ -55,6 +55,11 @@ npm run build
 # verify build command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Build failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
@@ -63,11 +68,16 @@ echo "\n"
 
 # Step 3: Copy files to server
 
-scp -r dist\* $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
+scp -r ./dist $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
 
 # verify copy command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Copy failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
@@ -85,6 +95,11 @@ ssh $TARGET_SERVER `
 # verify set current release command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Set current release failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
@@ -98,6 +113,11 @@ EOF
 # verify restart command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Restart failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
@@ -111,6 +131,11 @@ EOF
 # verify curl command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Verify failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
@@ -124,6 +149,11 @@ EOF
 # verify clean up command didn't fail
 if [ $? -ne 0 ]; then
     echo -e "${RED}Error: Clean up failed.${NC}"
+
+    # remove git tags
+    git tag -d $TYPE_FASTER_APP_VERSION
+    git push origin :refs/tags/$TYPE_FASTER_APP_VERSION
+
     exit 1
 fi
 
