@@ -94,10 +94,10 @@ echo "\n"
 # need to ssh into the server, verify file permissions, and set current release
 ssh $TARGET_SERVER "
 cd /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION && \
-sudo chown -R kaitlyn:kaitlyn . && \
-sudo find . -type d -exec chmod 755 {} \; && \
-sudo find . -type f -exec chmod 644 {} \; && \
-sudo ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current"
+chown -R kaitlyn:kaitlyn . && \
+find . -type d -exec chmod 755 {} \; && \
+find . -type f -exec chmod 644 {} \; && \
+ln -s /var/www/type-faster/releases/v$TYPE_FASTER_APP_VERSION /var/www/type-faster/current"
 
 
 # verify set current release command didn't fail
@@ -114,9 +114,7 @@ fi
 #### Step 5: Restart server
 
 # need to ssh into the server and restart nginx
-ssh $TARGET_SERVER << EOF
-    sudo systemctl restart nginx
-EOF
+ssh $TARGET_SERVER "sudo systemctl restart nginx"
 
 # verify restart command didn't fail
 if [ $? -ne 0 ]; then
@@ -132,9 +130,7 @@ fi
 #### Step 6: Verify
 
 # need to ssh into the server and verify the app is running
-ssh $TARGET_SERVER << EOF
-    curl http://localhost
-EOF
+ssh $TARGET_SERVER "curl http://localhost"
 
 # verify curl command didn't fail
 if [ $? -ne 0 ]; then
@@ -150,9 +146,7 @@ fi
 #### Step 7: Clean up
 
 # need to ssh into the server and clean up old releases
-ssh $TARGET_SERVER << EOF
-    sudo rm -rf /var/www/type-faster/releases/*
-EOF
+ssh $TARGET_SERVER "sudo rm -rf /var/www/type-faster/releases/*"
 
 # verify clean up command didn't fail
 if [ $? -ne 0 ]; then
