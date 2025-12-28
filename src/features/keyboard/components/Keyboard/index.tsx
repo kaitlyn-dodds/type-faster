@@ -1,6 +1,6 @@
 import './style.css'
 import Key from '../Key'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { DEFAULT_KEYBOARD_LAYOUT } from '../../../../data/constants/default_keyboard_layout'
 import type { KeyData } from '../../types/KeyData'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,92 +12,116 @@ function getKeyByCode(keyCode: string) {
     return DEFAULT_KEYBOARD_LAYOUT.flat().find(k => k.id === keyCode)
 }
 
-function deriveTokenFromKeys(keys: Set<KeyData>) {
-    // if includes backspace, return backspace token
-    const backspace = getKeyByCode("Backspace")
-    if (backspace && keys.has(backspace)) {
-        return {
-            value: "Backspace",
-            isEntered: true
-        }
+function deriveTokenFromQueue(
+    queue: KeyData[],
+    modifiers: Set<KeyData>
+): { token: ChallengeToken | undefined; newQueue: KeyData[] } {
+    // No keys in queue - nothing to process
+    if (queue.length === 0) {
+        return { token: undefined, newQueue: queue }
     }
 
-    // if includes enter, return new line token
-    const enter = getKeyByCode("Enter")
-    if (enter && keys.has(enter)) {
-        return {
-            value: "\n",
-            isEntered: true
-        }
-    }
+    // Get and remove the oldest key from queue (FIFO - last element)
+    const newQueue = [...queue]
+    const key = newQueue.pop()!
 
-    // if includes space, return space token
-    const space = getKeyByCode("Space")
-    if (space && keys.has(space)) {
-        return {
-            value: " ",
-            isEntered: true
-        }
-    }
-
-    // if includes shift (could be left or right shift) , toggle boolean
-    const shiftLeft = getKeyByCode("ShiftLeft")
-    const shiftRight = getKeyByCode("ShiftRight")
-    const containsModifier = (shiftLeft && keys.has(shiftLeft)) || (shiftRight && keys.has(shiftRight))
-
-    // loop over remaining keys, apply shift modifier to first key if containsShift is true
-    for (const key of keys) {
-        // skip modifier keys
-        if (containsModifier && (key.id === "ShiftLeft" || key.id === "ShiftRight")) continue
-
-        if (containsModifier && key.altValue) {
+    // Handle special keys w/ no modifiers and no real output (Backspace, Enter, Space)
+    switch (key.id) {
+        case "Backspace":
             return {
-                value: key.altValue,
-                isEntered: true
+                token: { value: "Backspace", isEntered: true },
+                newQueue
             }
-        }
+        case "Enter":
+            return {
+                token: { value: "\n", isEntered: true },
+                newQueue
+            }
+        case "Space":
+            return {
+                token: { value: " ", isEntered: true },
+                newQueue
+            }
+    }
 
-        // if no shift, return first key value
+    // Apply modifier if available and key has altValue
+    // TODO: Future enhancement - validate modifier-key compatibility
+    // (e.g., Ctrl+C should not output 'C', some modifiers block character output)
+    if (modifiers.size > 0 && key.altValue) {
         return {
-            value: key.value,
-            isEntered: true
+            token: { value: key.altValue, isEntered: true },
+            newQueue
         }
     }
 
-    console.log("No valid key found")
+    // Regular key without modifier
+    return {
+        token: { value: key.value, isEntered: true },
+        newQueue
+    }
 }
 
-function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
+function Keyboard({ onStartTimer }: any) {
 
     const dispatch = useDispatch()
 
     const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
 
-    const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
+    const [keyQueue, setKeyQueue] = useState<KeyData[]>([])
+    const [activeModifiers, setActiveModifiers] = useState<Set<KeyData>>(new Set())
+    const [pendingToken, setPendingToken] = useState<ChallengeToken | undefined>(undefined)
+
+    // useRef to keep track of active modifiers
+    const activeModifiersRef = useRef<Set<KeyData>>(new Set())
 
     useEffect(() => {
-        // derive token from pressed keys and add to store
+        activeModifiersRef.current = activeModifiers
+    }, [activeModifiers])
+
+
+    // Dispatch pending tokens after state updates complete
+    useEffect(() => {
+        if (pendingToken) {
+            dispatch(addUnprocessedToken(pendingToken))
+            setPendingToken(undefined)  // Clear after dispatching
+        }
+    }, [pendingToken, dispatch])
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
 
             if (key) {
                 // start timer if not started
                 if (!timerStarted) {
-                    console.log("Starting timer")
                     onStartTimer()
                 }
 
-                // TODO: move token derivation to store
-                const newPressedKeys = new Set(pressedKeys)
-                newPressedKeys.add(key)
-                setPressedKeys(newPressedKeys)
+                // Categorize the key using isModifier property
+                if (key.isModifier) {
+                    // Add to active modifiers
+                    setActiveModifiers(prev => {
+                        const newSet = new Set(prev)
+                        newSet.add(key)
+                        return newSet
+                    })
+                } else {// Add to queue (at the front - index 0) and process immediately
+                    setKeyQueue(prev => {
+                        const updatedQueue = [key, ...prev]
 
-                const token: ChallengeToken | undefined = deriveTokenFromKeys(newPressedKeys)
+                        // Derive token immediately with current queue state
+                        const { token, newQueue } = deriveTokenFromQueue(
+                            updatedQueue,
+                            activeModifiersRef.current
+                        )
 
-                // nothing to do if no token
-                if (!token) return
+                        // Store token to dispatch AFTER state update
+                        setPendingToken(token)
 
-                dispatch(addUnprocessedToken(token))
+                        // Return the queue with the derived key removed
+                        return newQueue
+                    })
+                }
 
                 // need to prevent the default action here
                 e.preventDefault()
@@ -106,21 +130,22 @@ function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
             }
         }
 
-        // remove key from pressedKeys set
         const handleKeyUp = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
 
-            if (key && pressedKeys.has(key)) {
-                // remove key from pressedKeys set
-                setPressedKeys(prev => {
+            if (key && key.isModifier) {
+                // Only remove modifier keys when released
+                setActiveModifiers(prev => {
                     const newSet = new Set(prev)
                     newSet.delete(key)
                     return newSet
                 })
-
-                // need to prevent the default action here
-                e.preventDefault()
             }
+            // DO NOT remove keys from queue here!
+            // Queue is only modified by deriveTokenFromQueue
+
+            // need to prevent the default action here
+            e.preventDefault()
         }
 
         window.addEventListener("keydown", handleKeyDown)
@@ -130,7 +155,7 @@ function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
             window.removeEventListener("keydown", handleKeyDown)
             window.removeEventListener("keyup", handleKeyUp)
         }
-    }, [pressedKeys, addUnprocessedToken])
+    }, [])
 
     return (
         <div className="keyboard">
@@ -141,7 +166,10 @@ function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
                             key={keyData.id}
                             value={keyData.value}
                             display={keyData.display}
-                            isPressed={pressedKeys.has(keyData)}
+                            isPressed={
+                                keyQueue.some(k => k.id === keyData.id) ||
+                                activeModifiers.has(keyData)
+                            }
                         />
                     ))}
                 </div>
@@ -150,4 +178,4 @@ function Keyboard({ onStartTimer }: { onStartTimer: () => void }) {
     )
 }
 
-export default Keyboard 
+export default Keyboard

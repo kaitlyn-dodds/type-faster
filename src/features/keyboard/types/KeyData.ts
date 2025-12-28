@@ -15,4 +15,8 @@ export interface KeyData {
      * The alternative value of the key (e.g. "~", "!")
      */
     altValue?: string;
+    /**
+     * True if this key is a modifier (Shift, Ctrl, Alt, Meta)
+     */
+    isModifier?: boolean;
 }

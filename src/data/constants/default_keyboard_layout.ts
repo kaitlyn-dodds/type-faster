@@ -1,4 +1,4 @@
-import type { KeyData } from '../types/KeyData';
+import type { KeyData } from '../../features/keyboard/types/KeyData';
 
 export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
     // Row 1
@@ -56,7 +56,7 @@ export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
 
     // Row 4
     [
-        { id: "ShiftLeft", value: "Shift", display: "shift", altValue: "SHIFT" },
+        { id: "ShiftLeft", value: "Shift", display: "shift", altValue: "SHIFT", isModifier: true },
         { id: "KeyZ", value: "z", display: "z", altValue: "Z" },
         { id: "KeyX", value: "x", display: "x", altValue: "X" },
         { id: "KeyC", value: "c", display: "c", altValue: "C" },
@@ -67,15 +67,15 @@ export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
         { id: "Comma", value: ",", display: ",", altValue: "<" },
         { id: "Period", value: ".", display: ".", altValue: ">" },
         { id: "Slash", value: "/", display: "/", altValue: "?" },
-        { id: "ShiftRight", value: "Shift", display: "shift", altValue: "SHIFT" },
+        { id: "ShiftRight", value: "Shift", display: "shift", altValue: "SHIFT", isModifier: true },
     ],
 
     // Row 5
     [
-        { id: "ControlLeft", value: "Control", display: "control" },
-        { id: "AltLeft", value: "Alt", display: "alt" },
+        { id: "ControlLeft", value: "Control", display: "control", isModifier: true },
+        { id: "AltLeft", value: "Alt", display: "alt", isModifier: true },
         { id: "Space", value: " ", display: "space" },
-        { id: "AltRight", value: "Alt", display: "alt" },
-        { id: "ControlRight", value: "Control", display: "control" },
+        { id: "AltRight", value: "Alt", display: "alt", isModifier: true },
+        { id: "ControlRight", value: "Control", display: "control", isModifier: true },
     ],
 ];

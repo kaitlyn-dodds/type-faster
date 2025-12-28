@@ -39,8 +39,9 @@ typingSessionListener.startListening({
         // if the token is a backspace, need to pop the last processed token
         if (token.value === 'Backspace') {
             // pop last processed token
-            const lastProcessedToken: ChallengeToken = processedTokens[processedTokens.length - 1]
-            listenerApi.dispatch(popProcessedToken(lastProcessedToken))
+            if (processedTokens.length > 0) {
+                listenerApi.dispatch(popProcessedToken(processedTokens[processedTokens.length - 1]))
+            }
 
             // record backspace counter
             listenerApi.dispatch(incrementBackspaces())
@@ -97,7 +98,7 @@ typingSessionListener.startListening({
         const poppedToken: ChallengeToken = action.payload
 
         // need to check if token is correct or incorrect for the position in the challenge
-        if (poppedToken.value === typingSession.session.challenge[typingSession.session.processedTokens.length].value) {
+        if (poppedToken && poppedToken.value === typingSession.session.challenge[typingSession.session.processedTokens.length].value) {
             listenerApi.dispatch(decrementCorrectCharacters())
         }
 
