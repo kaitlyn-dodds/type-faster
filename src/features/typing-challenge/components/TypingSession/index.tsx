@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChallengeText from "../ChallengeText"
 import Keyboard from '../../../keyboard/components/Keyboard'
@@ -6,7 +6,7 @@ import SessionReview from "../../../challenge-review/components/SessionReview"
 import SessionControls from "../SessionControls"
 import './style.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { reset, finishTypingSession, startTimer, incrementTimerSeconds } from '../../../../store/reducers/typingSessionReducer'
+import { reset, startTimer, incrementTimerSeconds } from '../../../../store/reducers/typingSessionReducer'
 import type { RootState } from '../../../../store/store'
 
 function TypingSession() {
@@ -19,10 +19,6 @@ function TypingSession() {
 
     const handleRestart = () => {
         dispatch(reset())
-    }
-
-    const completeSession = () => {
-        dispatch(finishTypingSession())
     }
 
     const handleQuit = () => {
