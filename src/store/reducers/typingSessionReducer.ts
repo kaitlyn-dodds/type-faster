@@ -44,20 +44,18 @@ export const typingSessionReducer = createSlice({
             state.session.processedTokens.push(action.payload)
         },
         popProcessedToken: (state, action: PayloadAction<ChallengeToken>) => {
-            // Remove token from the end
-            const lastProcessedToken: ChallengeToken | undefined = state.session.processedTokens.pop()
+            const tokenToPop: ChallengeToken = action.payload
 
-            // check that token matches expected token
-            if (lastProcessedToken?.value !== action.payload.value) {
-                console.warn("Popped token does not match expected token")
+            // Remove token from the end
+            const lastProcessedToken: ChallengeToken | undefined = state.session.processedTokens.at(-1)
+
+            if (lastProcessedToken && lastProcessedToken.value === tokenToPop.value) {
+                state.session.processedTokens.pop()
             }
         },
         addUnprocessedToken: (state, action: PayloadAction<ChallengeToken>) => {
             // Add token to the end
             state.session.unprocessedTokens.push(action.payload)
-
-            // Increment total characters
-            state.session.totalCharacters++
         },
         // Processing
         startProcessing: (state) => {

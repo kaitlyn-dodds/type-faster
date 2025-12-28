@@ -3,7 +3,6 @@ import {
     addProcessedToken,
     addUnprocessedToken,
     finishTypingSession,
-    decrementCorrectCharacters,
     decrementCursorIndex,
     incrementBackspaces,
     incrementCorrectCharacters,
@@ -11,7 +10,9 @@ import {
     incrementIncorrectCharacters,
     popProcessedToken,
     startProcessing,
-    stopProcessing
+    stopProcessing,
+    incrementTotalCharacters,
+    decrementCorrectCharacters
 } from '../reducers/typingSessionReducer'
 import type { ChallengeToken } from '../../features/typing-challenge/types/ChallengeToken'
 import type { RootState } from '../store'
@@ -24,25 +25,29 @@ typingSessionListener.startListening({
     effect: (_, listenerApi) => {
         const state: RootState = listenerApi.getState() as RootState
         const typingSession = state.typingSession
+        const processedTokens = typingSession.session.processedTokens
+        const unprocessedTokens = typingSession.session.unprocessedTokens
 
         // only process if not already processing and there is something to process
-        if (typingSession.processingToken || typingSession.session.unprocessedTokens.length === 0) return
+        if (typingSession.processingToken || unprocessedTokens.length === 0) return
 
-        const token: ChallengeToken = typingSession.session.unprocessedTokens[typingSession.session.unprocessedTokens.length - 1] // FIFO principle
+        const token: ChallengeToken = unprocessedTokens[unprocessedTokens.length - 1] // FIFO principle
 
         // start processing
         listenerApi.dispatch(startProcessing())
 
-        // TODO: process token
-
         // if the token is a backspace, need to pop the last processed token
         if (token.value === 'Backspace') {
-            const lastProcessedToken: ChallengeToken = typingSession.session.processedTokens[typingSession.session.processedTokens.length - 1]
+            // pop last processed token
+            const lastProcessedToken: ChallengeToken = processedTokens[processedTokens.length - 1]
             listenerApi.dispatch(popProcessedToken(lastProcessedToken))
+
             // record backspace counter
             listenerApi.dispatch(incrementBackspaces())
+
             // stop processing w/out adding backspace to processed tokens
             listenerApi.dispatch(stopProcessing())
+
             return
         }
 
@@ -59,6 +64,9 @@ typingSessionListener.startListening({
     effect: (action, listenerApi) => {
         const state: RootState = listenerApi.getState() as RootState
         const typingSession = state.typingSession
+
+        // increment total characters
+        listenerApi.dispatch(incrementTotalCharacters())
 
         // need to check if token is correct or incorrect
         const submittedToken: ChallengeToken = action.payload
@@ -88,12 +96,14 @@ typingSessionListener.startListening({
         // get token being removed
         const poppedToken: ChallengeToken = action.payload
 
-        // check if token being removed is correct or incorrect
-        const expectedToken: ChallengeToken = typingSession.session.challenge[typingSession.cursorIndex]
-
-        // if the token being removed is correct, need to decrement cursor index and correct characters
-        if (poppedToken.value === expectedToken.value) {
+        // need to check if token is correct or incorrect for the position in the challenge
+        if (poppedToken.value === typingSession.session.challenge[typingSession.session.processedTokens.length].value) {
             listenerApi.dispatch(decrementCorrectCharacters())
+        }
+
+        // cursor should point to next expected token
+        // which means the cursor should always point to processed tokens length + 1
+        if (typingSession.cursorIndex >= typingSession.session.processedTokens.length + 1) {
             listenerApi.dispatch(decrementCursorIndex())
         }
     },
