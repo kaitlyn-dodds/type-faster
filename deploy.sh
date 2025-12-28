@@ -68,7 +68,7 @@ echo "\n"
 
 # Step 3: Copy files to server
 
-scp -r ./dist $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
+scp -r ./dist/* $TARGET_SERVER:/var/www/type-faster/releases/$TYPE_FASTER_APP_VERSION
 
 # verify copy command didn't fail
 if [ $? -ne 0 ]; then
