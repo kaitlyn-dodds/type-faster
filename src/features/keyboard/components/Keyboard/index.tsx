@@ -44,17 +44,16 @@ function deriveTokenFromQueue(
             }
     }
 
-    // Apply modifier if available and key has altValue
-    // TODO: Future enhancement - validate modifier-key compatibility
-    // (e.g., Ctrl+C should not output 'C', some modifiers block character output)
-    if (modifiers.size > 0 && key.altValue) {
+    // check for shift (left and right) modifiers
+    if (modifiers.has(getKeyByCode("ShiftLeft")!) || modifiers.has(getKeyByCode("ShiftRight")!)
+        && key.altValue) {
         return {
-            token: { value: key.altValue, isEntered: true },
+            token: { value: key.altValue!, isEntered: true },
             newQueue
         }
     }
 
-    // Regular key without modifier
+    // other modifiers don't matter, just return the key value
     return {
         token: { value: key.value, isEntered: true },
         newQueue
