@@ -1,3 +1,4 @@
+import './style.css'
 
 interface ChallengeTokenProps {
     display: string,

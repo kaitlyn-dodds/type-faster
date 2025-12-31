@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     gap: 4px;
     justify-content: center;
-    margin: 10vh auto;
+    margin: 5vh auto 0 auto;
 }
 
 .challenge-token.default {
