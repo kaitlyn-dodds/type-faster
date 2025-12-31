@@ -73,7 +73,9 @@ typingSessionListener.startListening({
         const submittedToken: ChallengeToken = action.payload
         const expectedToken: ChallengeToken = typingSession.session.challenge[typingSession.cursorIndex]
 
-        if (submittedToken.value === expectedToken.value) { // correct
+        // value and cursor position must match
+        if (submittedToken.value === expectedToken.value
+            && typingSession.cursorIndex === typingSession.session.processedTokens.length - 1) { // correct
             listenerApi.dispatch(incrementCorrectCharacters())
             listenerApi.dispatch(incrementCursorIndex())
         } else { // incorrect
