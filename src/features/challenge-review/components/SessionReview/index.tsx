@@ -12,7 +12,9 @@ import {
 } from '../../../../utils/sessionMetrics'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import type { RootState } from '../../../../store/store'
+import { reset } from '../../../../store/reducers/typingSessionReducer'
 
 interface SessionReviewProps {
     onRestartClick: () => void
@@ -20,6 +22,12 @@ interface SessionReviewProps {
 
 function SessionReview({ onRestartClick }: SessionReviewProps) {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const onNewChallengeClick = () => {
+        dispatch(reset())
+        navigate('/challenges')
+    }
 
     const session = useSelector((state: RootState) => state.typingSession.session)
 
@@ -47,7 +55,7 @@ function SessionReview({ onRestartClick }: SessionReviewProps) {
             <Stat label="Backspaces" value={session.backspaces} />
 
             <div className="button-container">
-                <Button label="New Challenge" onClick={() => navigate('/challenges')} />
+                <Button label="New Challenge" onClick={onNewChallengeClick} />
                 <Button label="Restart" onClick={onRestartClick} />
             </div>
         </div>
