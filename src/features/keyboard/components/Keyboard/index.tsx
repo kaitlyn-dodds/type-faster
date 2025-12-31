@@ -66,9 +66,10 @@ function Keyboard({ onStartTimer }: any) {
 
     const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
 
-    const [keyQueue, setKeyQueue] = useState<KeyData[]>([])
+    const [_, setKeyQueue] = useState<KeyData[]>([])
     const [activeModifiers, setActiveModifiers] = useState<Set<KeyData>>(new Set())
     const [pendingToken, setPendingToken] = useState<ChallengeToken | undefined>(undefined)
+    const [pressedKeys, setPressedKeys] = useState<Set<KeyData>>(new Set())
 
     // useRef to keep track of active modifiers
     const activeModifiersRef = useRef<Set<KeyData>>(new Set())
@@ -95,6 +96,13 @@ function Keyboard({ onStartTimer }: any) {
                 if (!timerStarted) {
                     onStartTimer()
                 }
+
+                // Add to pressed keys
+                setPressedKeys(prev => {
+                    const newSet = new Set(prev)
+                    newSet.add(key)
+                    return newSet
+                })
 
                 // Categorize the key using isModifier property
                 if (key.isModifier) {
@@ -132,13 +140,23 @@ function Keyboard({ onStartTimer }: any) {
         const handleKeyUp = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
 
-            if (key && key.isModifier) {
-                // Only remove modifier keys when released
-                setActiveModifiers(prev => {
+            if (key) {
+                // Remove from pressed keys
+                setPressedKeys(prev => {
                     const newSet = new Set(prev)
                     newSet.delete(key)
                     return newSet
                 })
+
+                if (key.isModifier) {
+                    // Only remove modifier keys when released
+                    setActiveModifiers(prev => {
+                        const newSet = new Set(prev)
+                        newSet.delete(key)
+                        return newSet
+                    })
+                }
+
             }
             // DO NOT remove keys from queue here!
             // Queue is only modified by deriveTokenFromQueue
@@ -166,8 +184,7 @@ function Keyboard({ onStartTimer }: any) {
                             value={keyData.value}
                             display={keyData.display}
                             isPressed={
-                                keyQueue.some(k => k.id === keyData.id) ||
-                                activeModifiers.has(keyData)
+                                pressedKeys.has(keyData)
                             }
                         />
                     ))}
