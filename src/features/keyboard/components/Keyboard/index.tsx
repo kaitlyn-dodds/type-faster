@@ -181,8 +181,7 @@ function Keyboard({ onStartTimer }: any) {
                     {row.map((keyData) => (
                         <Key
                             key={keyData.id}
-                            value={keyData.value}
-                            display={keyData.display}
+                            KeyData={keyData}
                             isPressed={
                                 pressedKeys.has(keyData)
                             }

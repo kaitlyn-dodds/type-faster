@@ -19,4 +19,8 @@ export interface KeyData {
      * True if this key is a modifier (Shift, Ctrl, Alt, Meta)
      */
     isModifier?: boolean;
+    /**
+     * The image path of the key
+     */
+    img?: string;
 }

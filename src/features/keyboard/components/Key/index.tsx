@@ -1,19 +1,21 @@
+import type { KeyData } from '../../types/KeyData'
 import './style.css'
 
 interface KeyProps {
-    value: string,
-    display: string,
+    KeyData: KeyData,
     isPressed: boolean
 }
 
-function Key({ value, display, isPressed }: KeyProps) {
+function Key({ KeyData, isPressed }: KeyProps) {
+    const imageUrl = new URL(KeyData.img!, import.meta.url).href
+
     return (
-        <button
+        <img
             className={`key ${isPressed ? "pressed" : ""}`}
-            id={value === " " ? "space-bar" : undefined}
-        >
-            {display}
-        </button>
+            src={imageUrl}
+            id={KeyData.value === " " ? "space-bar" : undefined}
+            alt={KeyData.id}
+        />
     )
 }
 
