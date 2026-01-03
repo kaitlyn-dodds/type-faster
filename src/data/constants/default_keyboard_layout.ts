@@ -39,7 +39,7 @@ export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
 
     // Row 3
     [
-        { id: "CapsLock", value: "CapsLock", display: "capslock", img: "/assets/keyboard/caps_lock.png" },
+        { id: "CapsLock", value: "CapsLock", display: "capslock", isModifier: true, img: "/assets/keyboard/caps_lock.png" },
         { id: "KeyA", value: "a", display: "a", altValue: "A", img: "/assets/keyboard/a.png" },
         { id: "KeyS", value: "s", display: "s", altValue: "S", img: "/assets/keyboard/s.png" },
         { id: "KeyD", value: "d", display: "d", altValue: "D", img: "/assets/keyboard/d.png" },

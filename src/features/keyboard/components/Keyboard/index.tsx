@@ -44,9 +44,11 @@ function deriveTokenFromQueue(
             }
     }
 
-    // check for shift (left and right) modifiers
-    if (modifiers.has(getKeyByCode("ShiftLeft")!) || modifiers.has(getKeyByCode("ShiftRight")!)
+    // check for shift (left and right), caps lock modifiers
+    if ((modifiers.has(getKeyByCode("ShiftLeft")!) || modifiers.has(getKeyByCode("ShiftRight")!))
+        || modifiers.has(getKeyByCode("CapsLock")!)
         && key.altValue) {
+        console.log("Alt value: ", key.altValue)
         return {
             token: { value: key.altValue!, isEntered: true },
             newQueue
@@ -106,12 +108,21 @@ function Keyboard({ onStartTimer }: any) {
 
                 // Categorize the key using isModifier property
                 if (key.isModifier) {
-                    // Add to active modifiers
-                    setActiveModifiers(prev => {
-                        const newSet = new Set(prev)
-                        newSet.add(key)
-                        return newSet
-                    })
+                    // if CapsLock, remove from modifiers if already present (toggle)
+                    if (key.id === "CapsLock" && activeModifiersRef.current.has(getKeyByCode("CapsLock")!)) {
+                        setActiveModifiers(prev => {
+                            const newSet = new Set(prev)
+                            newSet.delete(getKeyByCode("CapsLock")!)
+                            return newSet
+                        })
+                    } else {
+                        // Add to active modifiers
+                        setActiveModifiers(prev => {
+                            const newSet = new Set(prev)
+                            newSet.add(key)
+                            return newSet
+                        })
+                    }
                 } else {// Add to queue (at the front - index 0) and process immediately
                     setKeyQueue(prev => {
                         const updatedQueue = [key, ...prev]
@@ -139,6 +150,7 @@ function Keyboard({ onStartTimer }: any) {
 
         const handleKeyUp = (e: KeyboardEvent) => {
             const key = getKeyByCode(e.code)
+            const shouldPreventDefault = key?.isModifier
 
             if (key) {
                 // Remove from pressed keys
@@ -148,8 +160,8 @@ function Keyboard({ onStartTimer }: any) {
                     return newSet
                 })
 
-                if (key.isModifier) {
-                    // Only remove modifier keys when released
+                if (key.isModifier && key.id !== "CapsLock") {
+                    // Only remove modifier keys when released (unless caps lock)
                     setActiveModifiers(prev => {
                         const newSet = new Set(prev)
                         newSet.delete(key)
@@ -161,8 +173,10 @@ function Keyboard({ onStartTimer }: any) {
             // DO NOT remove keys from queue here!
             // Queue is only modified by deriveTokenFromQueue
 
-            // need to prevent the default action here
-            e.preventDefault()
+            // need to prevent the default action here (unless key is modifier)
+            if (shouldPreventDefault) {
+                e.preventDefault()
+            }
         }
 
         window.addEventListener("keydown", handleKeyDown)
