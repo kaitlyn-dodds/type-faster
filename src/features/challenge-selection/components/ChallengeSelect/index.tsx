@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import './style.css';
 import { useDispatch } from "react-redux";
 import { setChallenge } from "../../../../store/reducers/typingSessionReducer";
+import Button from "../../../../components/Button";
 
 export default function ChallengeSelect() {
     const difficulties: TypingChallenge['difficulty'][] = ["easy", "medium", "hard", "expert"];
@@ -19,16 +20,16 @@ export default function ChallengeSelect() {
     return (
         <div className="challenge-select-container">
             {difficulties.map((difficulty) => (
-                <div key={difficulty} className="difficulty-column">
-                    <h2 className="difficulty-header">{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</h2>
-                    <div className="challenges-list">
+                <div key={difficulty} className={`difficulty-column ${difficulty}-column`}>
+                    <h2 className={`difficulty-header ${difficulty}-header`}>
+                        {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                    </h2>
+                    <div className={`challenges-list ${difficulty}-challenges-list`}>
                         {getChallengesByDifficulty(difficulty).map((challenge: TypingChallenge) => (
-                            <button
+                            <Button
                                 key={challenge.id}
-                                className="challenge-button"
-                                onClick={() => handleChallengeSelect(challenge)}>
-                                {challenge.name}
-                            </button>
+                                label={challenge.name}
+                                onClick={() => handleChallengeSelect(challenge)} />
                         ))}
                     </div>
                 </div>

@@ -1,4 +1,14 @@
 .button {
     /* Inherits global button styles from index.css */
     flex: 1;
+    border-radius: 8px;
+    border: 3px solid #213547;
+    color: #213547;
+    background-color: #E5E5E5;
+}
+
+.button:hover {
+    background-color: #213547;
+    border: 3px solid #213547;
+    color: #E5E5E5;
 }

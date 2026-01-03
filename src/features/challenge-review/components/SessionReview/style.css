@@ -1,16 +1,18 @@
 .session-review {
     background-color: #f5f5f5;
+    border: 10px solid #213547;
     border-radius: 12px;
     padding: 2rem;
     max-width: 600px;
     margin: 2rem auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #213547;
 }
 
 .session-review h1 {
     margin-top: 0;
     margin-bottom: 1.5rem;
-    color: #213547;
+    color: #fca311;
     text-align: center;
 }
 

@@ -55,8 +55,8 @@ function SessionReview({ onRestartClick }: SessionReviewProps) {
             <Stat label="Backspaces" value={session.backspaces} />
 
             <div className="button-container">
-                <Button label="New Challenge" onClick={onNewChallengeClick} />
-                <Button label="Restart" onClick={onRestartClick} />
+                <Button label="New Challenge" className="new-challenge-button" onClick={onNewChallengeClick} />
+                <Button label="Restart" className="restart-button" onClick={onRestartClick} />
             </div>
         </div>
     )
