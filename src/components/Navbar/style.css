@@ -12,8 +12,8 @@
     column-gap: 20px;
 
     padding: 16px 32px;
-    border-bottom: 1px solid #e5e7eb;
-    background-color: #ffffff;
+    border-bottom: 5px solid #f24236;
+    background-color: #fca311;
 
     z-index: 1000;
 }

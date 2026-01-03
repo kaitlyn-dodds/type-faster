@@ -3,7 +3,7 @@ import type { KeyData } from '../../features/keyboard/types/KeyData';
 export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
     // Row 1
     [
-        { id: "Backquote", value: "`", display: "`", altValue: "~", img: "/assets/keyboard/q.png" },
+        { id: "Backquote", value: "`", display: "`", altValue: "~", img: "/assets/keyboard/backquote.png" },
         { id: "Digit1", value: "1", display: "1", altValue: "!", img: "/assets/keyboard/1.png" },
         { id: "Digit2", value: "2", display: "2", altValue: "@", img: "/assets/keyboard/2.png" },
         { id: "Digit3", value: "3", display: "3", altValue: "#", img: "/assets/keyboard/3.png" },
@@ -14,7 +14,7 @@ export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
         { id: "Digit8", value: "8", display: "8", altValue: "*", img: "/assets/keyboard/8.png" },
         { id: "Digit9", value: "9", display: "9", altValue: "(", img: "/assets/keyboard/9.png" },
         { id: "Digit0", value: "0", display: "0", altValue: ")", img: "/assets/keyboard/0.png" },
-        { id: "Minus", value: "-", display: "-", altValue: "_", img: "/assets/keyboard/minus.png" },
+        { id: "Minus", value: "-", display: "-", altValue: "_", img: "/assets/keyboard/dash.png" },
         { id: "Equal", value: "=", display: "=", altValue: "+", img: "/assets/keyboard/equals.png" },
         { id: "Backspace", value: "Backspace", display: "backspace", altValue: "Backspace", img: "/assets/keyboard/backspace.png" },
     ],
@@ -63,19 +63,19 @@ export const DEFAULT_KEYBOARD_LAYOUT: KeyData[][] = [
         { id: "KeyV", value: "v", display: "v", altValue: "V", img: "/assets/keyboard/v.png" },
         { id: "KeyB", value: "b", display: "b", altValue: "B", img: "/assets/keyboard/b.png" },
         { id: "KeyN", value: "n", display: "n", altValue: "N", img: "/assets/keyboard/n.png" },
-        { id: "KeyM", value: "m", display: "m", altValue: "M", img: "/assets/keyboard/q.png" },
-        { id: "Comma", value: ",", display: ",", altValue: "<", img: "/assets/keyboard/q.png" },
-        { id: "Period", value: ".", display: ".", altValue: ">", img: "/assets/keyboard/q.png" },
-        { id: "Slash", value: "/", display: "/", altValue: "?", img: "/assets/keyboard/q.png" },
-        { id: "ShiftRight", value: "Shift", display: "shift", altValue: "SHIFT", isModifier: true, img: "/assets/keyboard/q.png" },
+        { id: "KeyM", value: "m", display: "m", altValue: "M", img: "/assets/keyboard/m.png" },
+        { id: "Comma", value: ",", display: ",", altValue: "<", img: "/assets/keyboard/comma.png" },
+        { id: "Period", value: ".", display: ".", altValue: ">", img: "/assets/keyboard/period.png" },
+        { id: "Slash", value: "/", display: "/", altValue: "?", img: "/assets/keyboard/forwardslash.png" },
+        { id: "ShiftRight", value: "Shift", display: "shift", altValue: "SHIFT", isModifier: true, img: "/assets/keyboard/shift.png" },
     ],
 
     // Row 5
     [
-        { id: "ControlLeft", value: "Control", display: "control", isModifier: true, img: "/assets/keyboard/q.png" },
-        { id: "AltLeft", value: "Alt", display: "alt", isModifier: true, img: "/assets/keyboard/q.png" },
+        { id: "ControlLeft", value: "Control", display: "control", isModifier: true, img: "/assets/keyboard/ctrl.png" },
+        { id: "AltLeft", value: "Alt", display: "alt", isModifier: true, img: "/assets/keyboard/alt.png" },
         { id: "Space", value: " ", display: "space", img: "/assets/keyboard/space.png" },
-        { id: "AltRight", value: "Alt", display: "alt", isModifier: true, img: "/assets/keyboard/q.png" },
-        { id: "ControlRight", value: "Control", display: "control", isModifier: true, img: "/assets/keyboard/q.png" },
+        { id: "AltRight", value: "Alt", display: "alt", isModifier: true, img: "/assets/keyboard/alt.png" },
+        { id: "ControlRight", value: "Control", display: "control", isModifier: true, img: "/assets/keyboard/ctrl.png" },
     ],
 ];

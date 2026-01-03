@@ -3,14 +3,17 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 1rem;
-    background-color: #f5f5f5;
+    padding: .5rem;
+    background-color: #e5e5e5;
+    border-top: 5px solid #f24236;
+    color: #2e86ab;
     justify-content: space-between;
     text-align: left;
     font-size: 0.8rem;
-
 }
 
 .footer p {
     margin: 0 1rem;
+    /* should be on same line */
+    display: inline;
 }

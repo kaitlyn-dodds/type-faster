@@ -12,11 +12,11 @@
 }
 
 .challenge-token.entered {
-    color: lightgreen;
+    color: #2e86ab;
 }
 
 .challenge-token.enteredIncorrect {
-    color: red;
+    color: #f24236;
 }
 
 .challenge-token.cursor {

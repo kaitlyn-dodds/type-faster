@@ -3,6 +3,9 @@
     flex-direction: column;
     align-items: center;
     margin-top: 10vh;
+    background-color: #354560;
+    padding: 15px 20px 30px;
+    border-radius: 10px;
 }
 
 .keyboard-row {
