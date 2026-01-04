@@ -1,0 +1,29 @@
+.challenges-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.challenges-view-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.challenges-view h1 {
+    margin: 0 auto 10px;
+    padding: 0 20px 10px;
+    font-size: 3rem;
+    color: #213547;
+    border-bottom: 2px solid #fca311;
+}
+
+.challenges-view p {
+    margin: 0 auto;
+    font-size: 1.3rem;
+    color: #213547;
+}

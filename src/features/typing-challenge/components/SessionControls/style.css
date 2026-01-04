@@ -43,10 +43,10 @@
     border-radius: 0 0 8px 0;
 }
 
-.quit-button:hover {
+.session-controls .quit-button:hover {
     background-color: #d32f2f;
 }
 
-.restart-button:hover {
+.session-controls .restart-button:hover {
     background-color: #1976d2;
 }

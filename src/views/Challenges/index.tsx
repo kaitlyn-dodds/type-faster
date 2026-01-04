@@ -1,10 +1,13 @@
 import ChallengeSelect from "../../features/challenge-selection/components/ChallengeSelect"
+import './style.css'
 
 export default function Challenges() {
     return (
         <div className="challenges-view">
-            <h2>Select a Challenge</h2>
-            <p>Choose a challenge to get started</p>
+            <div className="challenges-view-header">
+                <h1>Select a Challenge</h1>
+                <p>Choose a challenge to get started</p>
+            </div>
 
             <ChallengeSelect />
         </div>
