@@ -17,6 +17,7 @@ function ChallengeText() {
                     const words: ChallengeToken[][] = []
                     let currentWord: ChallengeToken[] = []
 
+                    // iterate over challenge tokens and group them into words based on spaces
                     challengeTokens.forEach((token) => {
                         currentWord.push(token)
                         if (token.value === " ") {
@@ -24,11 +25,15 @@ function ChallengeText() {
                             currentWord = []
                         }
                     })
+
+                    // add last word if it exists
                     if (currentWord.length > 0) {
                         words.push(currentWord)
                     }
 
+                    // iterate over words and render them as ChallengeTokenDisplay components wrapped in divs
                     return words.map((word, wordIndex) => (
+                        // wrap words in div for styling (keeps each letter of a word together)
                         <div key={wordIndex} className="challenge-word">
                             {word.map((token) => {
                                 const index = globalIndex++
@@ -36,7 +41,8 @@ function ChallengeText() {
                                 const submittedToken = processedTokens[index]
 
                                 if (submittedToken) {
-                                    if (submittedToken.value === token.value) {
+                                    // if the submitted token matches the expected token and the cursor is at the correct position
+                                    if (submittedToken.value === token.value && index < cursorIndex) {
                                         status = 'entered'
                                     } else {
                                         status = 'enteredIncorrect'
