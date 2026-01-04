@@ -1,6 +1,9 @@
 .challenge-token {
     display: inline-block;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    font-size: 15px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 6px;
+    /* font-size: 18px;
+    padding: 4px 6px;
+    border-radius: 4px; */
 }

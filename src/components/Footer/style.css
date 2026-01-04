@@ -4,8 +4,10 @@
     left: 0;
     width: 100%;
     padding: .5rem;
-    background-color: #e5e5e5;
     border-top: 5px solid #f24236;
+    background: linear-gradient(to top, #fca311 0%, #fca311 85%, #fc8f11 100%);
+    box-shadow: 0 2px 16px rgba(242, 66, 54, .3),
+        0 4px 8px rgba(0, 0, 0, 0.1);
     color: #2e86ab;
     justify-content: space-between;
     text-align: left;
