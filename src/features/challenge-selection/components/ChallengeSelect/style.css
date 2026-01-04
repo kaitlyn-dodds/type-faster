@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    /* height: 100%; */
     min-height: 400px;
     /* Ensure some height if empty */
     gap: 0;
@@ -13,12 +12,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-right: 1px solid #ccc;
     align-items: center;
-}
-
-.difficulty-column:last-child {
-    border-right: none;
 }
 
 .difficulty-header {
@@ -32,26 +26,64 @@
 .challenges-list {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     gap: 12px;
 }
 
 .challenge-button {
-    padding: 10px 16px;
-    font-size: 16px;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
     width: 100%;
-    text-align: center;
 }
 
-.challenge-button:hover {
-    background-color: #e0e0e0;
+/* easy difficulty styles */
+.easy-header {
+    color: #79B473;
 }
 
-.challenge-button:active {
-    transform: translateY(1px);
+.easy-challenges-list {
+    border-color: #79B473;
+}
+
+#easy-button:hover {
+    background-color: #79B473;
+}
+
+/* medium difficulty styles */
+.medium-header {
+    color: #fca311;
+}
+
+.medium-challenges-list {
+    border-color: #fca311;
+}
+
+#medium-button:hover {
+    background-color: #fca311;
+}
+
+/* hard difficulty styles */
+.hard-header {
+    color: #c1292e;
+}
+
+.hard-challenges-list {
+    border-color: #c1292e;
+}
+
+#hard-button:hover {
+    background-color: #c1292e;
+}
+
+/* expert difficulty styles */
+.expert-header {
+    color: #2e86ab;
+}
+
+.expert-challenges-list {
+    border-color: #2e86ab;
+}
+
+#expert-button:hover {
+    background-color: #2e86ab;
 }

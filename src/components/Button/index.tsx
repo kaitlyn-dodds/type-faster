@@ -3,12 +3,16 @@ import './style.css'
 interface ButtonProps {
     label: string
     onClick: () => void
-    className?: string
+    className?: string,
+    id?: string
 }
 
-function Button({ label, onClick, className }: ButtonProps) {
+function Button({ label, onClick, className, id }: ButtonProps) {
     return (
-        <button className={`button ${className}`} onClick={onClick}>
+        <button
+            id={id}
+            className={`button ${className}`}
+            onClick={onClick}>
             {label}
         </button>
     )

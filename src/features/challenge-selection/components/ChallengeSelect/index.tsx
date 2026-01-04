@@ -29,6 +29,8 @@ export default function ChallengeSelect() {
                             <Button
                                 key={challenge.id}
                                 label={challenge.name}
+                                id={`${difficulty}-button`}
+                                className={`challenge-button ${difficulty}-button`}
                                 onClick={() => handleChallengeSelect(challenge)} />
                         ))}
                     </div>

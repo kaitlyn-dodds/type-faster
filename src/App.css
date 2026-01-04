@@ -1,6 +1,7 @@
 body {
   background-color: #fff;
   color: #2e86ab;
+  font-family: "Inconsolata", monospace;
 }
 
 #root {
