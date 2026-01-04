@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 0;
-    border-bottom: 1px solid #2e86ab;
+    border-bottom: 1px solid var(--color-primary-blue);
 }
 
 .stat:last-child {
@@ -11,37 +11,37 @@
 }
 
 .stat .label {
-    color: #213547;
+    color: var(--color-primary-dark);
     font-weight: 500;
 }
 
 .stat .value {
-    color: #213547;
+    color: var(--color-primary-dark);
     font-weight: 600;
     font-family: monospace;
     font-size: 1.1em;
 }
 
 .stat .value.default {
-    color: #213547;
+    color: var(--color-primary-dark);
 }
 
 .stat .value.poor {
-    color: #c1292e;
+    color: var(--color-hard);
 }
 
 .stat .value.fair {
-    color: #fca311;
+    color: var(--color-medium);
 }
 
 .stat .value.good {
-    color: #79B473;
+    color: var(--color-easy);
 }
 
 .stat .value.excellent {
-    color: #2e86ab;
+    color: var(--color-expert);
 }
 
 .stat .value.legendary {
-    color: #B744B8;
+    color: var(--color-insane);
 }

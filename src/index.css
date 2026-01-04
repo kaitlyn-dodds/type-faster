@@ -1,4 +1,40 @@
 :root {
+  /* Brand Colors */
+  --color-primary-yellow: #fca311;
+  --color-primary-red: #f24236;
+  --color-primary-blue: #2e86ab;
+  --color-primary-dark: #213547;
+
+  /* Difficulty Colors */
+  --color-easy: #79B473;
+  --color-medium: #fca311;
+  --color-hard: #c1292e;
+  --color-expert: #2e86ab;
+  --color-insane: #B744B8;
+
+  /* UI Colors */
+  --color-white: #ffffff;
+  --color-off-white: #fefaf5;
+  --color-light-gray: #f8f9fa;
+
+  /* Gradient Colors */
+  --color-warm-orange: #fc8f11;
+  --color-light-orange: #fdb950;
+
+  /* Hover States */
+  --color-red-hover: #d32f2f;
+  --color-blue-hover: #1976d2;
+
+  /* Shadow Values */
+  --shadow-base: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-large: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-key: 0 3px 0 rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 2px 6px rgba(0, 0, 0, 0.1);
+  --shadow-button-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-red-glow: 0 2px 16px rgba(242, 66, 54, 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-text-subtle: 0 2px 4px rgba(0, 0, 0, 0.08);
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
@@ -6,7 +42,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--color-primary-dark);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -16,12 +52,12 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-blue-hover);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: var(--color-blue-hover);
 }
 
 body {
@@ -42,15 +78,15 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-primary-dark);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-base);
 }
 
 button:hover {
-  border-color: #646cff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-blue-hover);
+  box-shadow: var(--shadow-hover);
   transform: translateY(-1px);
 }
 
@@ -61,15 +97,15 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--color-primary-dark);
+    background-color: var(--color-white);
   }
 
   a:hover {
-    color: #747bff;
+    color: var(--color-blue-hover);
   }
 
   button {
-    background-color: #ffffff;
+    background-color: var(--color-white);
   }
 }

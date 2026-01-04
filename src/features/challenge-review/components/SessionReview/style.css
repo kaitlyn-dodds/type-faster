@@ -1,18 +1,18 @@
 .session-review {
-    background-color: #fff;
-    border: 3px solid #213547;
+    background-color: var(--color-white);
+    border: 3px solid var(--color-primary-dark);
     border-radius: 12px;
     padding: 2rem;
     max-width: 600px;
     margin: 2rem auto;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    color: #213547;
+    box-shadow: var(--shadow-large);
+    color: var(--color-primary-dark);
 }
 
 .session-review h1 {
     margin-top: 0;
     margin-bottom: 1.5rem;
-    color: #fca311;
+    color: var(--color-primary-yellow);
     text-align: center;
 }
 
@@ -28,25 +28,25 @@
 }
 
 .restart-button {
-    background-color: #fff;
-    border: 3px solid #79B473;
-    color: #79B473;
+    background-color: var(--color-white);
+    border: 3px solid var(--color-easy);
+    color: var(--color-easy);
 }
 
 .new-challenge-button {
-    background-color: #fff;
-    border: 3px solid #2e86ab;
-    color: #2e86ab;
+    background-color: var(--color-white);
+    border: 3px solid var(--color-primary-blue);
+    color: var(--color-primary-blue);
 }
 
 .restart-button:hover {
-    background-color: #79B473;
-    border: 3px solid #79B473;
-    color: #fff;
+    background-color: var(--color-easy);
+    border: 3px solid var(--color-easy);
+    color: var(--color-white);
 }
 
 .new-challenge-button:hover {
-    background-color: #2e86ab;
-    border: 3px solid #2e86ab;
-    color: #fff;
+    background-color: var(--color-primary-blue);
+    border: 3px solid var(--color-primary-blue);
+    color: var(--color-white);
 }

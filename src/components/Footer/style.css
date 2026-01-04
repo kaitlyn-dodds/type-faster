@@ -4,11 +4,10 @@
     left: 0;
     width: 100%;
     padding: .5rem;
-    border-top: 5px solid #f24236;
-    background: linear-gradient(to top, #fca311 0%, #fca311 85%, #fc8f11 100%);
-    box-shadow: 0 2px 16px rgba(242, 66, 54, .3),
-        0 4px 8px rgba(0, 0, 0, 0.1);
-    color: #2e86ab;
+    border-top: 5px solid var(--color-primary-red);
+    background: linear-gradient(to top, var(--color-primary-yellow) 0%, var(--color-primary-yellow) 85%, var(--color-warm-orange) 100%);
+    box-shadow: var(--shadow-red-glow);
+    color: var(--color-primary-blue);
     justify-content: space-between;
     text-align: left;
     font-size: 0.8rem;

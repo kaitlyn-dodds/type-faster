@@ -1,6 +1,6 @@
 body {
-  background-color: #fefaf5;
-  color: #2e86ab;
+  background-color: var(--color-off-white);
+  color: var(--color-primary-blue);
   font-family: "Inconsolata", monospace;
 }
 

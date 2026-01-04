@@ -2,6 +2,5 @@
     min-width: 55px;
     max-height: 70px;
     margin: 5px 3px;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2),
-        0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-key);
 }

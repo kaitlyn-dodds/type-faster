@@ -39,56 +39,56 @@
 
 /* easy difficulty styles */
 .easy-header {
-    color: #79B473;
+    color: var(--color-easy);
 }
 
 .easy-challenges-list {
-    border-color: #79B473;
+    border-color: var(--color-easy);
 }
 
 #easy-button:hover {
-    background-color: #79B473;
+    background-color: var(--color-easy);
     transition: background-color 0.2s ease-in-out;
 }
 
 /* medium difficulty styles */
 .medium-header {
-    color: #fca311;
+    color: var(--color-medium);
 }
 
 .medium-challenges-list {
-    border-color: #fca311;
+    border-color: var(--color-medium);
 }
 
 #medium-button:hover {
-    background-color: #fca311;
+    background-color: var(--color-medium);
     transition: background-color 0.2s ease-in-out;
 }
 
 /* hard difficulty styles */
 .hard-header {
-    color: #c1292e;
+    color: var(--color-hard);
 }
 
 .hard-challenges-list {
-    border-color: #c1292e;
+    border-color: var(--color-hard);
 }
 
 #hard-button:hover {
-    background-color: #c1292e;
+    background-color: var(--color-hard);
     transition: background-color 0.2s ease-in-out;
 }
 
 /* expert difficulty styles */
 .expert-header {
-    color: #2e86ab;
+    color: var(--color-expert);
 }
 
 .expert-challenges-list {
-    border-color: #2e86ab;
+    border-color: var(--color-expert);
 }
 
 #expert-button:hover {
-    background-color: #2e86ab;
+    background-color: var(--color-expert);
     transition: background-color 0.2s ease-in-out;
 }
