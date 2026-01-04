@@ -3,12 +3,14 @@
     flex-direction: column;
     align-items: center;
     margin-top: 5vh;
-    background-color: #354560;
-    padding: 15px 20px 30px;
+    border: 3px solid var(--color-primary-dark);
+    box-shadow: var(--shadow-dark);
+    padding: 20px 20px 30px;
     border-radius: 10px;
 }
 
 .keyboard-row {
     display: flex;
     justify-content: center;
+    margin: 2px 0;
 }

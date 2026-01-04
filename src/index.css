@@ -29,11 +29,12 @@
   --shadow-base: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
   --shadow-large: 0 4px 16px rgba(0, 0, 0, 0.12);
-  --shadow-key: 0 3px 0 rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-key: 0 4px 4px rgba(33, 53, 71, 0.3);
   --shadow-button: 0 2px 6px rgba(0, 0, 0, 0.1);
   --shadow-button-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-red-glow: 0 2px 16px rgba(242, 66, 54, 0.3), 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-text-subtle: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-dark: 0 4px 4px rgba(33, 53, 71, 0.5);
 
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.6;
