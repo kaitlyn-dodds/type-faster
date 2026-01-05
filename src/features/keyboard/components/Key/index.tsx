@@ -8,11 +8,12 @@ interface KeyProps {
 
 function Key({ KeyData, isPressed }: KeyProps) {
     const imageUrl = new URL(KeyData.img!, import.meta.url).href
+    const pressedImageUrl = new URL(KeyData.pressedImg!, import.meta.url).href
 
     return (
         <img
             className={`key ${isPressed ? "pressed" : ""}`}
-            src={imageUrl}
+            src={isPressed ? pressedImageUrl : imageUrl}
             id={KeyData.value === " " ? "space-bar" : undefined}
             alt={KeyData.id}
         />

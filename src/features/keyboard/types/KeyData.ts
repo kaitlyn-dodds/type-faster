@@ -23,4 +23,8 @@ export interface KeyData {
      * The image path of the key
      */
     img?: string;
+    /**
+     * The pressed image path of the key
+     */
+    pressedImg?: string;
 }
