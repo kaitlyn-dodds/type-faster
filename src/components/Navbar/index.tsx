@@ -6,7 +6,7 @@ export default function Navbar() {
         <nav className="navbar">
             <div className="navbar-left">
                 <Link to="/" className="navbar-title">
-                    Type Faster
+                    <img className="navbar-title-img" src="/assets/logos/logo@0.5x.png" alt="" />
                 </Link>
             </div>
 
