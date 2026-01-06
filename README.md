@@ -12,12 +12,6 @@ A typing test web application designed to evaluate and improve typing speed, acc
 
 Users select from challenges ranging from *easy* to *expert*, with each level introducing longer passages, more complex vocabulary, and broader punctuation requirements. By the highest difficulty tiers, challenges are designed to push both speed and precision simultaneously.
 
-<div style="display: flex; justify-content: space-between;">
-  <img src="./public/assets/showcase/challenge-select.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-  <img src="./public/assets/showcase/challenge-inprogress.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-  <img src="./public/assets/showcase/challenge-review.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-</div>
-
 ## Core Features
 
 ### Challenge Selection
@@ -72,6 +66,12 @@ After completing a challenge, users are presented with a detailed performance su
   Total number of backspace key presses during the challenge.
 
 After reviewing results, users may restart the current challenge or select a new one.
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./public/assets/showcase/challenge-select.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
+  <img src="./public/assets/showcase/challenge-inprogress.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
+  <img src="./public/assets/showcase/challenge-review.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
+</div>
 
 ## Design Notes
 
