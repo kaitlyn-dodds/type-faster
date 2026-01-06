@@ -1,6 +1,10 @@
 .key {
-    min-width: 55px;
     max-height: 63px;
+    min-width: 63px;
     margin: 5px 6px;
     box-shadow: var(--shadow-key);
+}
+
+.key-control {
+    min-width: 158px;
 }

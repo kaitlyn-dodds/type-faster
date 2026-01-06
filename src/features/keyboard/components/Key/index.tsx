@@ -12,7 +12,7 @@ function Key({ KeyData, isPressed }: KeyProps) {
 
     return (
         <img
-            className={`key ${isPressed ? "pressed" : ""}`}
+            className={`key ${KeyData.isModifier ? "modifier" : ""} key-${KeyData.display} ${isPressed ? "pressed" : ""}`}
             src={isPressed ? pressedImageUrl : imageUrl}
             id={KeyData.value === " " ? "space-bar" : undefined}
             alt={KeyData.id}
