@@ -13,9 +13,9 @@ function TypingSession() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const isComplete = useSelector((state: RootState) => state.typingSession.isComplete)
-    const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
-    const challenge = useSelector((state: RootState) => state.typingSession.session.challenge)
+    const { isComplete, timer, session } = useSelector((state: RootState) => state.typingSession)
+    const { started: timerStarted } = timer
+    const { challenge } = session
 
     const handleRestart = () => {
         dispatch(reset())

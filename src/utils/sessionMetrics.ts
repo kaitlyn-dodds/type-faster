@@ -28,18 +28,51 @@ export function formatAccuracy(accuracy: number): string {
     return accuracy.toFixed(2) + '%'
 }
 
+const QUALITY_MESSAGES = {
+    poor: 'Keep practicing!',
+    fair: 'You\'re getting there!',
+    good: 'Great job!',
+    excellent: 'You\'re a pro!',
+    legendary: 'No one\'s better than you!'
+} as const
+
+type QualityLevel = keyof typeof QUALITY_MESSAGES
+
+function getQualityFromScore(score: number, thresholds: { poor: number; fair: number; good: number; excellent: number }): StatQuality {
+    let quality: QualityLevel
+
+    if (score < thresholds.poor) {
+        quality = 'poor'
+    } else if (score < thresholds.fair) {
+        quality = 'fair'
+    } else if (score < thresholds.good) {
+        quality = 'good'
+    } else if (score < thresholds.excellent) {
+        quality = 'excellent'
+    } else {
+        quality = 'legendary'
+    }
+
+    return {
+        message: QUALITY_MESSAGES[quality],
+        quality
+    }
+}
+
 export function calculateWPMQuality(wpm: number): StatQuality {
-    if (wpm < 20) return { message: 'Keep practicing!', quality: 'poor' }
-    if (wpm < 40) return { message: 'You\'re getting there!', quality: 'fair' }
-    if (wpm < 60) return { message: 'Great job!', quality: 'good' }
-    if (wpm < 80) return { message: 'You\'re a pro!', quality: 'excellent' }
-    return { message: 'No one\'s better than you!', quality: 'legendary' }
+    return getQualityFromScore(wpm, {
+        poor: 20,
+        fair: 40,
+        good: 60,
+        excellent: 80
+    })
 }
 
 export function calculateAccuracyQuality(accuracy: number): StatQuality {
-    if (accuracy < 50) return { message: 'Keep practicing!', quality: 'poor' }
-    if (accuracy < 70) return { message: 'You\'re getting there!', quality: 'fair' }
-    if (accuracy < 90) return { message: 'Great job!', quality: 'good' }
-    if (accuracy < 99) return { message: 'You\'re a pro!', quality: 'excellent' }
-    return { message: 'No one\'s better than you!', quality: 'legendary' }
+    return getQualityFromScore(accuracy, {
+        poor: 50,
+        fair: 70,
+        good: 90,
+        excellent: 99
+    })
 }

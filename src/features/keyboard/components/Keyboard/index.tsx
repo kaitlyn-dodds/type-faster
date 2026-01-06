@@ -66,7 +66,7 @@ function Keyboard({ onStartTimer }: any) {
 
     const dispatch = useDispatch()
 
-    const timerStarted = useSelector((state: RootState) => state.typingSession.timer.started)
+    const { started: timerStarted } = useSelector((state: RootState) => state.typingSession.timer)
 
     const [_, setKeyQueue] = useState<KeyData[]>([])
     const [activeModifiers, setActiveModifiers] = useState<Set<KeyData>>(new Set())

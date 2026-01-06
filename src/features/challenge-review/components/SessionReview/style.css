@@ -27,7 +27,7 @@
     margin-top: 2rem;
 }
 
-.restart-button {
+.review-restart-button {
     background-color: var(--color-white);
     border: 3px solid var(--color-easy);
     color: var(--color-easy);
@@ -39,7 +39,7 @@
     color: var(--color-primary-blue);
 }
 
-.restart-button:hover {
+.review-restart-button:hover {
     background-color: var(--color-easy);
     border: 3px solid var(--color-easy);
     color: var(--color-white);

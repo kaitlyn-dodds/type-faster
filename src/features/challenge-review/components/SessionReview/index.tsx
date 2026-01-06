@@ -56,7 +56,7 @@ function SessionReview({ onRestartClick }: SessionReviewProps) {
 
             <div className="button-container">
                 <Button label="New Challenge" className="new-challenge-button" onClick={onNewChallengeClick} />
-                <Button label="Restart" className="restart-button" onClick={onRestartClick} />
+                <Button label="Restart" className="review-restart-button" onClick={onRestartClick} />
             </div>
         </div>
     )

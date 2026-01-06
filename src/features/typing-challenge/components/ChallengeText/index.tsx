@@ -3,65 +3,83 @@ import ChallengeTokenDisplay from "../ChallengeToken"
 import type { ChallengeToken } from "../../types/ChallengeToken"
 import { useSelector } from "react-redux"
 import type { RootState } from "../../../../store/store"
+import { useMemo } from 'react'
+
+// Helper function to group tokens into words based on spaces
+function groupTokensIntoWords(tokens: ChallengeToken[]): ChallengeToken[][] {
+    const words: ChallengeToken[][] = []
+    let currentWord: ChallengeToken[] = []
+
+    tokens.forEach((token) => {
+        currentWord.push(token)
+        if (token.value === " ") {
+            words.push(currentWord)
+            currentWord = []
+        }
+    })
+
+    // Add last word if it exists
+    if (currentWord.length > 0) {
+        words.push(currentWord)
+    }
+
+    return words
+}
+
+// Helper function to calculate token status
+function getTokenStatus(
+    token: ChallengeToken,
+    submittedToken: ChallengeToken | undefined,
+    index: number,
+    cursorIndex: number
+): 'default' | 'entered' | 'enteredIncorrect' {
+    if (!submittedToken) {
+        return 'default'
+    }
+
+    // If the submitted token matches the expected token and cursor is past this position
+    if (submittedToken.value === token.value && index < cursorIndex) {
+        return 'entered'
+    }
+
+    return 'enteredIncorrect'
+}
 
 function ChallengeText() {
-    const challengeTokens = useSelector((state: RootState) => state.typingSession.session.challenge)
-    const processedTokens = useSelector((state: RootState) => state.typingSession.session.processedTokens)
-    const cursorIndex = useSelector((state: RootState) => state.typingSession.cursorIndex)
+    const { session, cursorIndex } = useSelector((state: RootState) => ({
+        session: state.typingSession.session,
+        cursorIndex: state.typingSession.cursorIndex
+    }))
+
+    const { challenge: challengeTokens, processedTokens } = session
+
+    // Memoize word grouping to avoid recalculating on every render
+    const words = useMemo(() => groupTokensIntoWords(challengeTokens), [challengeTokens])
 
     return (
         <div className="challenge-text">
-            {
-                (() => {
-                    let globalIndex = 0
-                    const words: ChallengeToken[][] = []
-                    let currentWord: ChallengeToken[] = []
+            {(() => {
+                let globalIndex = 0
 
-                    // iterate over challenge tokens and group them into words based on spaces
-                    challengeTokens.forEach((token) => {
-                        currentWord.push(token)
-                        if (token.value === " ") {
-                            words.push(currentWord)
-                            currentWord = []
-                        }
-                    })
+                return words.map((word, wordIndex) => (
+                    <div key={wordIndex} className="challenge-word">
+                        {word.map((token) => {
+                            const index = globalIndex++
+                            const submittedToken = processedTokens[index]
+                            const status = getTokenStatus(token, submittedToken, index, cursorIndex)
 
-                    // add last word if it exists
-                    if (currentWord.length > 0) {
-                        words.push(currentWord)
-                    }
-
-                    // iterate over words and render them as ChallengeTokenDisplay components wrapped in divs
-                    return words.map((word, wordIndex) => (
-                        // wrap words in div for styling (keeps each letter of a word together)
-                        <div key={wordIndex} className="challenge-word">
-                            {word.map((token) => {
-                                const index = globalIndex++
-                                let status: 'default' | 'entered' | 'enteredIncorrect' = 'default'
-                                const submittedToken = processedTokens[index]
-
-                                if (submittedToken) {
-                                    // if the submitted token matches the expected token and the cursor is at the correct position
-                                    if (submittedToken.value === token.value && index < cursorIndex) {
-                                        status = 'entered'
-                                    } else {
-                                        status = 'enteredIncorrect'
-                                    }
-                                }
-
-                                return (
-                                    <ChallengeTokenDisplay
-                                        key={index}
-                                        display={token.value}
-                                        status={status}
-                                        isCursor={index === cursorIndex}
-                                    />
-                                )
-                            })}
-                        </div>
-                    ))
-                })()
-            }
+                            return (
+                                <ChallengeTokenDisplay
+                                    key={index}
+                                    display={token.value}
+                                    status={status}
+                                    isCursor={index === cursorIndex}
+                                />
+                            )
+                        })}
+                    </div>
+                ))
+            })()}
         </div>
     )
 }

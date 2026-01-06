@@ -44,7 +44,7 @@
     border-radius: 0 0 8px 0;
 }
 
-.session-controls .quit-button:hover {
+.session-controls .session-quit-button:hover {
     background-color: var(--color-red-hover);
     border: none;
     transform: none;
@@ -52,7 +52,7 @@
     color: var(--color-white);
 }
 
-.session-controls .restart-button:hover {
+.session-controls .session-restart-button:hover {
     background-color: var(--color-blue-hover);
     border: none;
     transform: none;

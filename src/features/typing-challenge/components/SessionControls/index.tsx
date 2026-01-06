@@ -10,21 +10,21 @@ interface SessionControlsProps {
 
 function SessionControls({ onQuit, onRestart }: SessionControlsProps) {
 
-    const elapsedSeconds = useSelector((state: RootState) => state.typingSession.timer.elapsedSeconds)
+    const { elapsedSeconds } = useSelector((state: RootState) => state.typingSession.timer)
 
     return (
         <div className="session-controls">
             <Timer elapsedSeconds={elapsedSeconds} />
             <div className="session-controls-buttons">
                 <button
-                    className="control-button quit-button"
+                    className="control-button session-quit-button"
                     onClick={onQuit}
                     aria-label="Quit session"
                 >
                     Quit
                 </button>
                 <button
-                    className="control-button restart-button"
+                    className="control-button session-restart-button"
                     onClick={onRestart}
                     aria-label="Restart session"
                 >
