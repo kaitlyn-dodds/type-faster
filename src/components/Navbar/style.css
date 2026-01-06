@@ -40,6 +40,12 @@
     transition: color 0.2s ease-in-out;
 }
 
+/* last navbar link should be green */
+.navbar-link:last-child:hover,
+.navbar-link:last-child:focus {
+    color: var(--color-primary-green);
+}
+
 .navbar-link:hover,
 .navbar-link:focus,
 .navbar-title:hover,

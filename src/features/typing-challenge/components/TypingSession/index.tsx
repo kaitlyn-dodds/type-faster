@@ -22,9 +22,16 @@ function TypingSession() {
     }
 
     const handleQuit = () => {
-        navigate('/challenges')
         dispatch(reset())
+        navigate('/challenges')
     }
+
+    // should clear state when TypingSession unmounts
+    useEffect(() => {
+        return () => {
+            dispatch(reset())
+        }
+    }, [])
 
     // Timer with 10-minute failsafe
     useEffect(() => {
