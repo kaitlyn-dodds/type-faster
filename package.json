@@ -1,8 +1,14 @@
 {
   "name": "type-faster",
+  "description": "Type Faster is a typing game that helps you improve your typing speed and accuracy.",
   "private": true,
   "version": "0.0.15",
   "type": "module",
+  "author": "therealkadodds@kadodds.com",
+  "engines": {
+    "node": ">=24",
+    "npm": ">=11"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
