@@ -23,6 +23,10 @@ Users select from challenges ranging from *easy* to *expert*, with each level in
   - Expanded punctuation and formatting requirements
 - Designed to progressively build typing confidence and consistency
 
+<div style="text-align: center;">
+  <iframe src="./public/assets/gifs/type-faster-challenge-select.gif" style="display: block; margin: auto;" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+</div>
+
 ### Typing Challenge Experience
 
 - Real-time keystroke evaluation and visual feedback
