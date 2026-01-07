@@ -23,9 +23,6 @@ Users select from challenges ranging from *easy* to *expert*, with each level in
   - Expanded punctuation and formatting requirements
 - Designed to progressively build typing confidence and consistency
 
-<div style="text-align: center;">
-  <iframe src="./public/assets/gifs/type-faster-challenge-select.gif" style="display: block; margin: auto;" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-</div>
 
 ### Typing Challenge Experience
 
@@ -71,11 +68,15 @@ After completing a challenge, users are presented with a detailed performance su
 
 After reviewing results, users may restart the current challenge or select a new one.
 
-<div style="display: flex; justify-content: space-between;">
-  <img src="./public/assets/showcase/challenge-select.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-  <img src="./public/assets/showcase/challenge-inprogress.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-  <img src="./public/assets/showcase/challenge-review.png" alt="Type Faster" style="display: block; margin: 0 auto; max-width: 30%;">
-</div>
+## Demo
+
+### Challenge Selection
+
+![Title Screen](./public/assets/gifs/type-faster-challenge-select.gif)
+
+### Typing Challenge / Review
+
+![Title Screen](./public/assets/gifs/type-faster-typing-challenge.gif)
 
 ## Design Notes
 
